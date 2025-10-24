@@ -1,0 +1,25 @@
+# Ignorar dependencias locales
+node_modules
+
+# Ignorar variables de entorno locales (¡muy importante!)
+.env
+
+# Ignorar logs y archivos de depuración
+npm-debug.log
+*.log
+
+# Ignorar archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de configuración de IDEs
+.vscode/
+.idea/
+
+# Ignorar archivos de Git
+.git
+.gitignore
+
+# Documentación
+README.md
+apiflow.md
