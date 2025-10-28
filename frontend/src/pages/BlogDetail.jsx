@@ -12,7 +12,7 @@ const BlogDetail = () => {
   useEffect(() => {
     const fetchBlogPost = async () => {
       try {
-        const response = await axios.get(`/api/blog/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/blog/${id}`);
         setBlogPost(response.data);
       } catch (err) {
         setError('Error al cargar la entrada del blog.');

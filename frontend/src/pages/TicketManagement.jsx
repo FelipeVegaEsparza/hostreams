@@ -12,7 +12,7 @@ const TicketManagement = () => {
       try {
         const token = localStorage.getItem('token');
         const config = { headers: { 'x-auth-token': token } };
-        const res = await axios.get('/api/tickets/admin/all', config);
+        const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/tickets/admin/all`, config);
         setTickets(res.data);
       } catch (err) {
         toast.error('Error al cargar los tickets.');

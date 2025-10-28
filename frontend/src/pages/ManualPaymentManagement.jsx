@@ -18,7 +18,7 @@ const ManualPaymentManagement = () => {
           Authorization: `Bearer ${token}`,
         },
       };
-      const response = await axios.get('/api/manual-payment', config); // Cambiar a /api/manual-payment
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/manual-payment`, config); // Cambiar a /api/manual-payment
       setManualPayments(response.data);
     } catch (error) {
       toast.error('Error al cargar pagos manuales.');
@@ -44,7 +44,7 @@ const ManualPaymentManagement = () => {
         };
         const url = `/api/manual-payment/approve/${paymentId}`;
         console.log('handleApprove: Enviando PUT a URL:', url);
-        await axios.put(url, { estado: 'aprobado' }, config);
+        await axios.put(`${import.meta.env.VITE_API_BASE_URL}api/manual-payment/${id}/status`, { estado: 'aprobado' }, config);
         toast.success('Pago aprobado exitosamente!');
         fetchManualPayments();
       } catch (error) {
@@ -64,7 +64,7 @@ const ManualPaymentManagement = () => {
         };
         const url = `/api/manual-payment/approve/${paymentId}`;
         console.log('handleReject: Enviando PUT a URL:', url);
-        await axios.put(url, { estado: 'rechazado' }, config);
+        await axios.put(`${import.meta.env.VITE_API_BASE_URL}api/manual-payment/${id}/status`, { estado: 'rechazado' }, config);
         toast.success('Pago rechazado exitosamente!');
         fetchManualPayments();
       } catch (error) {

@@ -69,7 +69,7 @@ const ManualPaymentForm = () => {
         },
       };
 
-      const res = await axios.post('/api/manual-payment/create', formData, config);
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}api/manual-payment/create`, formData, config);
       toast.success(res.data.msg);
       navigate('/my-account');
     } catch (err) {

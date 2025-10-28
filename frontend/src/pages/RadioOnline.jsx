@@ -26,7 +26,7 @@ const RadioOnline = () => {
   useEffect(() => {
     const fetchRadioPlans = async () => {
       try {
-        const response = await axios.get('/api/plans?categoria=Radio');
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/plans?categoria=Radio`);
         setPlans(response.data);
       } catch (error) {
         console.error('Error al obtener los planes de radio:', error);

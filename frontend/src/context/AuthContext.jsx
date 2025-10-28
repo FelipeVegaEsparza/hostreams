@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     const loadUser = async () => {
       if (token) {
         try {
-          const response = await axios.get('/api/auth/me'); // Obtener datos del usuario real
+          const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/auth/me`); // Obtener datos del usuario real
           setUser(response.data);
         } catch (error) {
           console.error('Error loading user:', error);
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('/api/auth/login', { email, password });
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}api/auth/login`, { email, password });
       setToken(response.data.token);
       localStorage.setItem('token', response.data.token);
       setUser(response.data.user); // Usar el usuario real del backend
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('/api/auth/register', userData);
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}api/auth/register`, userData);
       setToken(response.data.token);
       localStorage.setItem('token', response.data.token);
       setUser(response.data.user); // Usar el usuario real del backend

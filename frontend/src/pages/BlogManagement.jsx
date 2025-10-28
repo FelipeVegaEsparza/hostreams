@@ -22,7 +22,7 @@ const BlogManagement = () => {
 
   const fetchBlogPosts = async () => {
     try {
-      const response = await axios.get('/api/blog');
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/blog`);
       setBlogPosts(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       toast.error('Error al cargar las entradas del blog.');
@@ -62,10 +62,10 @@ const BlogManagement = () => {
 
     try {
       if (editingPost) {
-        await axios.put(`/api/blog/${editingPost.id}`, data, config);
+        await axios.put(`${import.meta.env.VITE_API_BASE_URL}api/blog/${editingPost.id}`, data, config);
         toast.success('Entrada del blog actualizada exitosamente.');
       } else {
-        await axios.post('/api/blog', data, config);
+        await axios.post(`${import.meta.env.VITE_API_BASE_URL}api/blog`, data, config);
         toast.success('Entrada del blog creada exitosamente.');
       }
       setFormData({
@@ -103,7 +103,7 @@ const BlogManagement = () => {
             Authorization: `Bearer ${token}`,
           },
         };
-        await axios.delete(`/api/blog/${id}`, config);
+        await axios.delete(`${import.meta.env.VITE_API_BASE_URL}api/blog/${id}`, config);
         toast.success('Entrada del blog eliminada exitosamente.');
         fetchBlogPosts();
       } catch (error) {

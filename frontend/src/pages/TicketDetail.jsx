@@ -15,7 +15,7 @@ const AdminStatusPanel = ({ ticket, onStatusChange }) => {
     try {
       const token = localStorage.getItem('token');
       const config = { headers: { 'Content-Type': 'application/json', 'x-auth-token': token } };
-      await axios.put(`/api/tickets/admin/${ticket.id}/status`, { estado: newStatus }, config);
+      await axios.put(`${import.meta.env.VITE_API_BASE_URL}api/tickets/admin/${ticket.id}/status`, { estado: newStatus }, config);
       onStatusChange(newStatus);
       toast.success('Estado del ticket actualizado.');
     } catch (err) {
@@ -60,7 +60,7 @@ const TicketDetail = () => {
       setIsAdmin(decodedToken.user?.rol === 'admin');
 
       const config = { headers: { 'x-auth-token': token } };
-      const res = await axios.get(`/api/tickets/${id}`, config);
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/tickets/${id}`, config);
       setTicket(res.data);
     } catch (err) {
       toast.error('Error al cargar el ticket.');
@@ -85,7 +85,7 @@ const TicketDetail = () => {
     try {
       const token = localStorage.getItem('token');
       const config = { headers: { 'Content-Type': 'application/json', 'x-auth-token': token } };
-      await axios.post(`/api/tickets/${id}/reply`, { mensaje: newMessage }, config);
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}api/tickets/${id}/reply`, { mensaje: newMessage }, config);
       setNewMessage('');
       fetchTicket();
     } catch (err) {

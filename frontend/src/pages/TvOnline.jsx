@@ -26,7 +26,7 @@ const TvOnline = () => {
   useEffect(() => {
     const fetchTvPlans = async () => {
       try {
-        const response = await axios.get('/api/plans?categoria=TV');
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/plans?categoria=TV`);
         setPlans(response.data);
       } catch (error) {
         console.error('Error al obtener los planes de TV:', error);

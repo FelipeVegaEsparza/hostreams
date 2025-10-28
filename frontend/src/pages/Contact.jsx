@@ -20,7 +20,7 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post('/api/contact', formData);
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}api/contact`, formData);
       toast.success(res.data.msg);
       setFormData({ nombre: '', email: '', mensaje: '' });
     } catch (err) {

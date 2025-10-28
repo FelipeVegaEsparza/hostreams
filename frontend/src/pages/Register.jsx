@@ -41,11 +41,7 @@ const Register = () => {
 
         const body = JSON.stringify(newUser);
 
-        const res = await axios.post(
-          '/api/auth/register',
-          body,
-          config
-        );
+        const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}api/auth/register`, userData);
         toast.success('Registro exitoso. Por favor, inicia sesión.');
         navigate('/login');
       } catch (err) {

@@ -75,7 +75,7 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
           nombre_proyecto: nombreProyecto,
         };
 
-        const flowResponse = await axios.post('/api/flow/create-payment', flowPayload, {
+        const flowResponse = await axios.post(`${import.meta.env.VITE_API_BASE_URL}api/flow/create-payment`, flowPayload, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -108,7 +108,7 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
         payload.subscriptionToRenewId = subscriptionToRenew.id;
       }
 
-      const response = await axios.post('/api/admin/subscriptions', payload, {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}api/admin/subscriptions`, payload, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

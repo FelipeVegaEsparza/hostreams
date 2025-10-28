@@ -74,7 +74,7 @@ const Home = () => {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const response = await axios.get('/api/plans');
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/plans`);
         setPlans(response.data.slice(0, 2)); // Tomar solo los primeros 2 planes
       } catch (error) {
         console.error('Error al obtener los planes:', error);
@@ -86,7 +86,7 @@ const Home = () => {
   useEffect(() => {
     const fetchLatestBlogPosts = async () => {
       try {
-        const response = await axios.get('/api/blog');
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/blog`);
         const sortedPosts = Array.isArray(response.data)
           ? response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           : [];

@@ -18,7 +18,7 @@ const UserManagement = () => {
         },
       };
       console.log('Fetching users with token:', token);
-      const response = await axios.get('/api/admin/users', config); // Asumiendo esta ruta en el backend
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/admin/users`, config); // Asumiendo esta ruta en el backend
       console.log('Users fetched successfully:', response.data);
       setUsers(response.data);
     } catch (error) {
@@ -48,7 +48,7 @@ const UserManagement = () => {
             Authorization: `Bearer ${token}`,
           },
         };
-        await axios.delete(`/api/admin/users/${userId}`, config);
+        await axios.delete(`${import.meta.env.VITE_API_BASE_URL}api/admin/users/${userId}`, config);
         toast.success('Usuario eliminado exitosamente!');
         fetchUsers(); // Volver a cargar la lista de usuarios
       } catch (error) {
@@ -149,7 +149,7 @@ const EditUserModal = ({ user, onClose, onUserUpdated }) => {
         },
       };
       const updatedUser = { nombre: name, email, rol, pais: country, moneda_preferida: preferredCurrency };
-      await axios.put(`/api/admin/users/${user.id}`, updatedUser, config);
+      await axios.put(`${import.meta.env.VITE_API_BASE_URL}api/admin/users/${user.id}`, updatedUser, config);
       toast.success('Usuario actualizado exitosamente!');
       onUserUpdated();
       onClose();

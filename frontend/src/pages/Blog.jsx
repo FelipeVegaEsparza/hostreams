@@ -11,7 +11,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlogPosts = async () => {
       try {
-        const response = await axios.get('/api/blog');
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/blog`);
         const sortedPosts = Array.isArray(response.data)
           ? response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           : [];
