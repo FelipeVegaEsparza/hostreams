@@ -27,10 +27,12 @@ export const AuthProvider = ({ children }) => {
     const loadUser = async () => {
       if (token) {
         try {
+          console.log('Fetching user from URL:', import.meta.env.VITE_API_BASE_URL + 'api/auth/me');
           const response = await axios.get(import.meta.env.VITE_API_BASE_URL + 'api/auth/me'); // Obtener datos del usuario real
           setUser(response.data);
         } catch (error) {
           console.error('Error loading user:', error);
+          console.error('Error details:', error.message, error.response?.data, error.config);
           setToken(null);
           localStorage.removeItem('token');
           setUser(null);
@@ -43,6 +45,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
+      console.log('Login URL:', import.meta.env.VITE_API_BASE_URL + 'api/auth/login');
       const response = await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/auth/login', { email, password });
       setToken(response.data.token);
       localStorage.setItem('token', response.data.token);
@@ -50,6 +53,7 @@ export const AuthProvider = ({ children }) => {
       toast.success('Inicio de sesión exitoso!');
       return true;
     } catch (error) {
+      console.error('Error during login:', error);
       toast.error(error.response?.data?.message || 'Error al iniciar sesión.');
       return false;
     }
@@ -57,6 +61,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
+      console.log('Register URL:', import.meta.env.VITE_API_BASE_URL + 'api/auth/register');
       const response = await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/auth/register', userData);
       setToken(response.data.token);
       localStorage.setItem('token', response.data.token);
@@ -64,6 +69,7 @@ export const AuthProvider = ({ children }) => {
       toast.success('Registro exitoso!');
       return true;
     } catch (error) {
+      console.error('Error during registration:', error);
       toast.error(error.response?.data?.message || 'Error al registrar usuario.');
       return false;
     }
