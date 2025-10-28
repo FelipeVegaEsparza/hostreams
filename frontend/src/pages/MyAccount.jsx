@@ -25,7 +25,7 @@ const MyAccount = () => {
             'x-auth-token': token,
           },
         };
-        const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/auth/me`, config);
+        const res = await axios.get(import.meta.env.VITE_API_BASE_URL + 'api/auth/me', config);
         setUserData(res.data);
       } catch (err) {
         if (err.response && err.response.status === 401) {

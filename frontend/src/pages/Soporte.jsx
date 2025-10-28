@@ -54,7 +54,7 @@ const NewTicketModal = ({ onClose, onTicketCreated }) => {
       const token = localStorage.getItem('token');
       const config = { headers: { 'Content-Type': 'application/json', 'x-auth-token': token } };
       const body = { asunto, mensaje };
-      await axios.post(`${import.meta.env.VITE_API_BASE_URL}api/tickets`, body, config);
+      await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/tickets', body, config);
       toast.success('Ticket creado exitosamente.');
       onTicketCreated();
       onClose();
@@ -105,7 +105,7 @@ const Soporte = () => {
         return;
       }
       const config = { headers: { 'x-auth-token': token } };
-      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/tickets`, config);
+      const res = await axios.get(import.meta.env.VITE_API_BASE_URL + 'api/tickets', config);
       setTickets(res.data);
     } catch (err) {
       toast.error('Error al cargar los tickets.');

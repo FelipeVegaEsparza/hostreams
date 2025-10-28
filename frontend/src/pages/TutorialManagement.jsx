@@ -42,8 +42,8 @@ const TutorialManagement = () => {
       const config = { headers: { 'x-auth-token': token } };
 
       const [categoriesRes, tutorialsRes] = await Promise.all([
-        axios.get(`${import.meta.env.VITE_API_BASE_URL}api/tutorial-categorias`, config),
-        axios.get(`${import.meta.env.VITE_API_BASE_URL}api/tutoriales`, config),
+        axios.get(import.meta.env.VITE_API_BASE_URL + 'api/tutorial-categorias', config),
+        axios.get(import.meta.env.VITE_API_BASE_URL + 'api/tutoriales', config),
       ]);
 
       setCategories(categoriesRes.data);
@@ -62,10 +62,10 @@ const TutorialManagement = () => {
       const token = localStorage.getItem('token');
       const config = { headers: { 'Content-Type': 'application/json', 'x-auth-token': token } };
       if (isCategoryEditing) {
-        await axios.put(`${import.meta.env.VITE_API_BASE_URL}api/tutorial-categorias/${currentCategory.id}`, { nombre: categoryName }, config);
+        await axios.put(import.meta.env.VITE_API_BASE_URL + `api/tutorial-categorias/${currentCategory.id}`, { nombre: categoryName }, config);
         toast.success('Categoría actualizada.');
       } else {
-        await axios.post(`${import.meta.env.VITE_API_BASE_URL}api/tutorial-categorias`, { nombre: categoryName }, config);
+        await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/tutorial-categorias', { nombre: categoryName }, config);
         toast.success('Categoría creada.');
       }
       setCategoryName('');
@@ -88,7 +88,7 @@ const TutorialManagement = () => {
       try {
         const token = localStorage.getItem('token');
         const config = { headers: { 'x-auth-token': token } };
-        await axios.delete(`${import.meta.env.VITE_API_BASE_URL}api/tutorial-categorias/${id}`, config);
+        await axios.delete(import.meta.env.VITE_API_BASE_URL + `api/tutorial-categorias/${id}`, config);
         toast.success('Categoría eliminada.');
         fetchData();
       } catch (err) {
@@ -112,10 +112,10 @@ const TutorialManagement = () => {
       const token = localStorage.getItem('token');
       const config = { headers: { 'Content-Type': 'application/json', 'x-auth-token': token } };
       if (isTutorialEditing) {
-        await axios.put(`${import.meta.env.VITE_API_BASE_URL}api/tutoriales/${currentTutorial.id}`, tutorialForm, config);
+        await axios.put(import.meta.env.VITE_API_BASE_URL + `api/tutoriales/${currentTutorial.id}`, tutorialForm, config);
         toast.success('Tutorial actualizado.');
       } else {
-        await axios.post(`${import.meta.env.VITE_API_BASE_URL}api/tutoriales`, tutorialForm, config);
+        await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/tutoriales', tutorialForm, config);
         toast.success('Tutorial creado.');
       }
       setTutorialForm({ titulo: '', descripcion: '', video_url: '', categoria_id: '' });
@@ -143,7 +143,7 @@ const TutorialManagement = () => {
       try {
         const token = localStorage.getItem('token');
         const config = { headers: { 'x-auth-token': token } };
-        await axios.delete(`${import.meta.env.VITE_API_BASE_URL}api/tutoriales/${id}`, config);
+        await axios.delete(import.meta.env.VITE_API_BASE_URL + `api/tutoriales/${id}`, config);
         toast.success('Tutorial eliminado.');
         fetchData();
       } catch (err) {

@@ -31,7 +31,7 @@ const Login = () => {
 
       const body = JSON.stringify(user);
 
-      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}api/auth/login`, { email, password });
+      const res = await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/auth/login', { email, password });
       localStorage.setItem('token', res.data.token);
       toast.success('Inicio de sesión exitoso.');
       navigate('/my-account');

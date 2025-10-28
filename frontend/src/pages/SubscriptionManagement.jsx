@@ -16,7 +16,7 @@ const SubscriptionManagement = () => {
             Authorization: `Bearer ${token}`,
           },
         };
-        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/admin/subscriptions`, config); // Asumiendo esta ruta en el backend
+        const response = await axios.get(import.meta.env.VITE_API_BASE_URL + 'api/admin/subscriptions', config); // Asumiendo esta ruta en el backend
         setSubscriptions(response.data);
       } catch (error) {
         toast.error('Error al cargar suscripciones.');
