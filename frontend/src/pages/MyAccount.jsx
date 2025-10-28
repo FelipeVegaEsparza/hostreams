@@ -174,7 +174,7 @@ const MyAccount = () => {
                   </div>
                   <div className="text-right">
                     <p className={`font-bold ${getStatusClass(payment.estado)}`}>{payment.estado}</p>
-                    {payment.comprobante && <a href={`/uploads/${payment.comprobante.split('/').pop()}`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline text-sm">Ver Comprobante</a>}
+                    {payment.comprobante && <a href={`${import.meta.env.VITE_API_BASE_URL}uploads/${payment.comprobante.split('/').pop()}`} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline text-sm">Ver Comprobante</a>}
                   </div>
                 </div>
               ))}

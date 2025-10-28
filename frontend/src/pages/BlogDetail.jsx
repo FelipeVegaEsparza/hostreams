@@ -44,7 +44,7 @@ const BlogDetail = () => {
         <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden p-6">
           {blogPost.imageUrl && (
             <img
-              src={`${blogPost.imageUrl}`}
+              src={`${import.meta.env.VITE_API_BASE_URL}${blogPost.imageUrl}`}
               alt={blogPost.title}
               className="w-full h-96 object-cover rounded-md mb-6"
             />
