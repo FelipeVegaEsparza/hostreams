@@ -43,10 +43,20 @@ app.use('/api/manual-payment', manualPaymentRoutes); // Usar rutas de pagos manu
 app.use('/api/blog', blogRoutes); // Usar rutas del blog
 app.use('/api/flow', flowRoutes); // Usar rutas de Flow.cl
 
-// Sincronizar base de datos
+// Sincronizar base de datos y luego iniciar el servidor
 const syncDatabase = require('./config/sync');
-syncDatabase();
 
-app.listen(PORT, () => {
-  console.log(`Servidor backend escuchando en el puerto ${PORT}`);
-});
+async function startServer() {
+  try {
+    await syncDatabase(); // Esperar a que la base de datos se sincronice
+
+    app.listen(PORT, () => {
+      console.log(`Servidor backend escuchando en el puerto ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Error al iniciar la aplicación:', error);
+    process.exit(1); // Salir con un código de error si falla la sincronización o el inicio del servidor
+  }
+}
+
+startServer();
