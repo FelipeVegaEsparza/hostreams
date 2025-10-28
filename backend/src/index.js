@@ -20,7 +20,7 @@ const flowRoutes = require('./routes/flow'); // Importar rutas de Flow.cl
 
 app.use(express.json());
 app.use(cors({
-  origin: 'https://hostreams.com',
+  origin: ['https://hostreams.com', 'https://hostreams-frontend.0ieu13.easypanel.host'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
