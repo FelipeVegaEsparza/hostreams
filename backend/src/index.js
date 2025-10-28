@@ -19,7 +19,11 @@ const blogRoutes = require('./routes/blog'); // Importar rutas del blog
 const flowRoutes = require('./routes/flow'); // Importar rutas de Flow.cl
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'https://hostreams.com',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 // Servir archivos estáticos (si es necesario, ej. para comprobantes de pago)
 app.use('/uploads', express.static('uploads'));
