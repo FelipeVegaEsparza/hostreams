@@ -1,9 +1,7 @@
-const mercadopago = require('mercadopago');
+const { MercadoPagoConfig, Preference, Payment, MerchantOrder } = require('mercadopago');
 const { MERCADOPAGO_ACCESS_TOKEN } = process.env;
 
-mercadopago.configure({
-  access_token: MERCADOPAGO_ACCESS_TOKEN,
-});
+const client = new MercadoPagoConfig({ accessToken: MERCADOPAGO_ACCESS_TOKEN });
 
 exports.createPreference = async (req, res) => {
   const { planId, amount, email, subject, quantity = 1 } = req.body;
@@ -27,7 +25,7 @@ exports.createPreference = async (req, res) => {
       notification_url: "https://hostreams-hostreams.0ieu13.easypanel.host/api/mercadopago/webhook", // URL para notificaciones de MercadoPago
     };
 
-    const response = await mercadopago.preferences.create(preference);
+    const response = await new Preference(client).create(preference);
     res.json({
       id: response.body.id,
       init_point: response.body.init_point,
@@ -45,12 +43,12 @@ exports.receiveWebhook = async (req, res) => {
   try {
     if (topic === 'payment') {
       const paymentId = query.id || query['data.id'];
-      const payment = await mercadopago.payment.findById(paymentId);
+      const payment = await new Payment(client).get({ id: paymentId });
       // Aquí puedes actualizar el estado de tu suscripción o pago en tu base de datos
       console.log('MercadoPago Payment:', payment.body);
     } else if (topic === 'merchant_order') {
       const merchantOrderId = query.id || query['data.id'];
-      const merchantOrder = await mercadopago.merchant_orders.findById(merchantOrderId);
+      const merchantOrder = await new MerchantOrder(client).get({ id: merchantOrderId });
       console.log('MercadoPago Merchant Order:', merchantOrder.body);
     }
 
