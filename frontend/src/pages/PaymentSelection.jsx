@@ -128,6 +128,8 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
         setPaymentLoading(false);
       }
       return;
+      return;
+      return;
     }
 
     try {
