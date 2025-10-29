@@ -267,7 +267,7 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
           </div>
 
           <div className="space-y-4">
-            {preferredCurrency === 'USD' && (
+            {preferredCurrency === 'USD' ? (
               <label className="flex items-center bg-gray-900 p-4 rounded-md cursor-pointer hover:bg-gray-600 transition-colors">
                 <input
                   type="radio"
@@ -279,30 +279,32 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
                 />
                 <span className="ml-3 text-lg">PayPal</span>
               </label>
+            ) : (
+              <>
+                <label className="flex items-center bg-gray-900 p-4 rounded-md cursor-pointer hover:bg-gray-600 transition-colors">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="flow"
+                    checked={paymentMethod === 'flow'}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                    className="form-radio h-5 w-5 text-blue-600"
+                  />
+                  <span className="ml-3 text-lg">Flow.cl</span>
+                </label>
+                <label className="flex items-center bg-gray-900 p-4 rounded-md cursor-pointer hover:bg-gray-600 transition-colors">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="manual"
+                    checked={paymentMethod === 'manual'}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                    className="form-radio h-5 w-5 text-blue-600"
+                  />
+                  <span className="ml-3 text-lg">Transferencia Electrónica Manual</span>
+                </label>
+              </>
             )}
-
-            <label className="flex items-center bg-gray-900 p-4 rounded-md cursor-pointer hover:bg-gray-600 transition-colors">
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="flow"
-                checked={paymentMethod === 'flow'}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                className="form-radio h-5 w-5 text-blue-600"
-              />
-              <span className="ml-3 text-lg">Flow.cl</span>
-            </label>
-            <label className="flex items-center bg-gray-900 p-4 rounded-md cursor-pointer hover:bg-gray-600 transition-colors">
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="manual"
-                checked={paymentMethod === 'manual'}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                className="form-radio h-5 w-5 text-blue-600"
-              />
-              <span className="ml-3 text-lg">Transferencia Electrónica Manual</span>
-            </label>
           </div>
 
           {paymentMethod !== 'mercadopago' && (
