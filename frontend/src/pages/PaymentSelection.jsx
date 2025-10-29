@@ -96,6 +96,36 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
         toast.error(error.response?.data?.message || 'Error al iniciar el pago con Flow.cl.');
       } finally {
         setPaymentLoading(false);
+      return;
+    } else if (paymentMethod === 'paypal') {
+      try {
+        const paypalPayload = {
+          planId: currentPlan.id,
+          amount: preferredCurrency === 'CLP' ? currentPlan.precio_clp : currentPlan.precio_usd,
+          currency: preferredCurrency,
+        };
+
+        const paypalResponse = await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/payments/create-order', paypalPayload, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        if (paypalResponse.data && paypalResponse.data.links) {
+          const approvalLink = paypalResponse.data.links.find(link => link.rel === 'approve');
+          if (approvalLink) {
+            window.location.href = approvalLink.href;
+          } else {
+            toast.error('Error al iniciar el pago con PayPal: URL de aprobación no recibida.');
+          }
+        } else {
+          toast.error('Error al iniciar el pago con PayPal: Respuesta inválida.');
+        }
+      } catch (error) {
+        console.error('Error al iniciar el pago con PayPal:', error.response?.data || error.message);
+        toast.error(error.response?.data?.message || 'Error al iniciar el pago con PayPal.');
+      } finally {
+        setPaymentLoading(false);
       }
       return;
     }
@@ -235,17 +265,19 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
           </div>
 
           <div className="space-y-4">
-            <label className="flex items-center bg-gray-900 p-4 rounded-md cursor-pointer hover:bg-gray-600 transition-colors">
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="paypal"
-                checked={paymentMethod === 'paypal'}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                className="form-radio h-5 w-5 text-blue-600"
-              />
-              <span className="ml-3 text-lg">PayPal</span>
-            </label>
+            {preferredCurrency === 'USD' && (
+              <label className="flex items-center bg-gray-900 p-4 rounded-md cursor-pointer hover:bg-gray-600 transition-colors">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="paypal"
+                  checked={paymentMethod === 'paypal'}
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                  className="form-radio h-5 w-5 text-blue-600"
+                />
+                <span className="ml-3 text-lg">PayPal</span>
+              </label>
+            )}
 
             <label className="flex items-center bg-gray-900 p-4 rounded-md cursor-pointer hover:bg-gray-600 transition-colors">
               <input

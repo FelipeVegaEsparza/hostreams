@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PAYPAL_API_BASE } = process.env;
+const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PAYPAL_API_BASE, FRONTEND_BASE_URL } = process.env;
 
 // Función para generar un token de acceso de PayPal
 const generateAccessToken = async () => {
@@ -41,8 +41,8 @@ exports.createOrder = async (req, res) => {
           },
         ],
         application_context: {
-          return_url: 'http://localhost:3001/payment-success', // URL de éxito en el frontend
-          cancel_url: 'http://localhost:3001/payment-cancel', // URL de cancelación en el frontend
+          return_url: `${FRONTEND_BASE_URL}/payment-success`, // URL de éxito en el frontend
+          cancel_url: `${FRONTEND_BASE_URL}/payment-cancel`, // URL de cancelación en el frontend
         },
       },
       {
