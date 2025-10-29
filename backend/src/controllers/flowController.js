@@ -13,14 +13,14 @@ const generateFlowSign = (params, secretKey) => {
 };
 
 exports.createPayment = async (req, res) => {
-  const { planId, amount, email, subject } = req.body; // planId para asociar la suscripción
+  const { planId, amount, email, subject, currency } = req.body; // planId para asociar la suscripción
 
   try {
     const params = {
       apiKey: FLOW_API_KEY,
       commerceOrder: `ORDER-${Date.now()}`, // Generar un número de orden único
       subject: subject || `Pago de suscripción Hostreams - Plan ${planId}`,
-      currency: 'CLP',
+      currency: currency,
       amount: Math.floor(parseFloat(amount)), // Ensure amount is an integer
       email: email,
       urlReturn: FLOW_SUCCESS_URL, // Flow.cl expects a single return URL

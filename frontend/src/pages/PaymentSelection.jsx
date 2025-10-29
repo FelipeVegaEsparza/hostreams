@@ -73,6 +73,7 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
           email: user.email, // User's email from AuthContext
           subject: `Pago de suscripción Hostreams - Plan ${currentPlan.nombre}`,
           nombre_proyecto: nombreProyecto,
+          currency: preferredCurrency,
         };
 
         const flowResponse = await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/flow/create-payment', flowPayload, {
