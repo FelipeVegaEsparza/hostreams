@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }) => {
         try {
           console.log('Fetching user from URL:', import.meta.env.VITE_API_BASE_URL + 'api/auth/me');
           const response = await axios.get(import.meta.env.VITE_API_BASE_URL + 'api/auth/me'); // Obtener datos del usuario real
+          console.log('Response from api/auth/me:', response.data);
           setUser(response.data);
         } catch (error) {
           console.error('Error loading user:', error);

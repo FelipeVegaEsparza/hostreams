@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useCurrency } from '../context/CurrencyContext';
-import { jwtDecode } from 'jwt-decode';
+import { useAuth } from '../context/AuthContext'; // Import useAuth
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRadio, faTv, faFileAlt, faUser, faCog, faSignInAlt, faUserPlus, faEnvelope, faBookOpen, faHome } from '@fortawesome/free-solid-svg-icons';
 
@@ -19,39 +19,14 @@ const NavItem = ({ to, icon, children }) => (
 
 const Header = () => {
   const { currency, setCurrency } = useCurrency();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const location = useLocation();
+  const { user, logout } = useAuth(); // Use useAuth hook
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const decodedToken = jwtDecode(token);
-        if (decodedToken.exp * 1000 < Date.now()) {
-          localStorage.removeItem('token');
-          setIsLoggedIn(false);
-          setIsAdmin(false);
-        } else {
-          setIsLoggedIn(true);
-          setIsAdmin(decodedToken.user?.rol === 'admin');
-        }
-      } catch (error) {
-        localStorage.removeItem('token');
-        setIsLoggedIn(false);
-        setIsAdmin(false);
-      }
-    } else {
-      setIsLoggedIn(false);
-      setIsAdmin(false);
-    }
-  }, [location]);
+  const isLoggedIn = !!user;
+  const isAdmin = user?.rol === 'admin';
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    setIsLoggedIn(false);
-    setIsAdmin(false);
+    logout(); // Use logout from AuthContext
     navigate('/'); // Redirect to homepage
   };
 
