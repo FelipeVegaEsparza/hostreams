@@ -21,33 +21,47 @@ const Register = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
     if (contrasena !== contrasena2) {
-      toast.error('Las contraseñas no coinciden');
-    } else {
-      try {
-        const newUser = {
-          nombre,
-          email,
-          contrasena,
-          pais,
-          moneda_preferida,
-        };
+      return toast.error('Las contraseñas no coinciden');
+    }
 
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
+    if (contrasena.length < 6) {
+      return toast.error('La contraseña debe tener al menos 6 caracteres');
+    }
 
-        const body = JSON.stringify(newUser);
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(email)) {
+      return toast.error('Por favor, introduce un email válido');
+    }
 
-        const res = await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/auth/register', userData);
-        toast.success('Registro exitoso. Por favor, inicia sesión.');
-        navigate('/login');
-      } catch (err) {
-        console.error(err.response.data);
-        toast.error(err.response.data.msg || 'Error en el registro');
+    try {
+      const newUser = {
+        nombre,
+        email,
+        contrasena,
+        pais,
+        moneda_preferida,
+      };
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/auth/register', newUser, config);
+      toast.success('Registro exitoso. Por favor, inicia sesión.');
+      navigate('/login');
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.errors) {
+        err.response.data.errors.forEach((error) => toast.error(error.msg));
+      } else if (err.response && err.response.data && err.response.data.msg) {
+        toast.error(err.response.data.msg);
+      } else {
+        toast.error('Error en el registro');
       }
+      console.error(err);
     }
   };
 

@@ -17,6 +17,12 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(email)) {
+      return toast.error('Por favor, introduce un email válido');
+    }
+
     try {
       const user = {
         email,
@@ -29,15 +35,19 @@ const Login = () => {
         },
       };
 
-      const body = JSON.stringify(user);
-
-      const res = await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/auth/login', { email, password });
+      const res = await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/auth/login', user, config);
       localStorage.setItem('token', res.data.token);
       toast.success('Inicio de sesión exitoso.');
       navigate('/my-account');
     } catch (err) {
-      console.error(err.response.data);
-      toast.error(err.response.data.msg || 'Error en el inicio de sesión');
+      if (err.response && err.response.data && err.response.data.errors) {
+        err.response.data.errors.forEach((error) => toast.error(error.msg));
+      } else if (err.response && err.response.data && err.response.data.msg) {
+        toast.error(err.response.data.msg);
+      } else {
+        toast.error('Error en el inicio de sesión');
+      }
+      console.error(err);
     }
   };
 

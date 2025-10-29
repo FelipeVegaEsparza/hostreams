@@ -57,7 +57,7 @@ Este documento detalla el plan de desarrollo para la plataforma de suscripciones
 
 ### 3.2. Páginas Principales
 - [COMPLETADO] **Página de Inicio:** Descripción, botón “Comenzar ahora” y enlaces a registro/login.
-- [PENDIENTE] **Página de Planes:**
+- [COMPLETADO] **Página de Planes:**
     - [COMPLETADO] Consultar API `/api/planes` para listar planes activos.
     - [COMPLETADO] Mostrar nombre, descripción, características, precio en CLP y USD.
     - [COMPLETADO] Implementar selector de moneda (toggle/dropdown) para cambiar precios dinámicamente.
@@ -70,17 +70,17 @@ Este documento detalla el plan de desarrollo para la plataforma de suscripciones
 - [COMPLETADO] Selector de moneda global (CLP / USD) en el header.
 
 ### 3.4. Manejo de Sesión y Notificaciones
-- [PENDIENTE] Manejo de sesión con JWT (guardado en localStorage).
+- [COMPLETADO] Manejo de sesión con JWT (guardado en localStorage).
 - [COMPLETADO] Notificaciones de éxito/error (modales/toasts).
 
 ### 3.5. Footer
 - [COMPLETADO] Implementar footer con redes sociales y enlaces de contacto.
 
 ## 4. Funcionalidades Adicionales
-- [PENDIENTE] Validaciones completas y manejo de errores coherente (frontend y backend).
+- [COMPLETADO] Validaciones completas y manejo de errores coherente (frontend y backend).
 - [COMPLETADO] Envío de correo de confirmación (registro, pago).
 
 ## 5. Despliegue y Calidad
 - [COMPLETADO] Crear `README.md` con pasos de instalación, configuración y comandos.
-- [PENDIENTE] Asegurar código modular, limpio y documentado (buenas prácticas MVC).
+- [COMPLETADO] Asegurar código modular, limpio y documentado (buenas prácticas MVC).
 - [COMPLETADO] Preparar proyecto para despliegue (Render, Railway, Vercel).

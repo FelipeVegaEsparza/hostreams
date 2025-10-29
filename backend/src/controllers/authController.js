@@ -7,11 +7,6 @@ const Payment = require('../models/Payment'); // Importar Payment
 const emailService = require('../utils/emailService'); // Importar el servicio de correo
 
 exports.register = async (req, res) => {
-  if (!req.body || typeof req.body !== 'object') {
-    console.error('req.body está vacío o no es un objeto válido:', req.body);
-    return res.status(400).json({ msg: 'Datos de registro inválidos o vacíos.' });
-  }
-
   const { nombre, email, contrasena, pais, moneda_preferida, rol } = req.body;
 
   try {
