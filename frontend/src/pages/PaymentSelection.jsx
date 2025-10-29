@@ -64,6 +64,7 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
 
     if (paymentMethod === 'manual') {
       navigate('/manual-payment', { state: { plan: currentPlan, preferredCurrency, nombreProyecto, subscriptionToRenew } });
+      setPaymentLoading(false);
       return;
     } else if (paymentMethod === 'flow') {
       try {
@@ -98,6 +99,7 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
         setPaymentLoading(false);
       }
       return;
+    } else if (paymentMethod === 'paypal') {
       try {
         const paypalPayload = {
           planId: currentPlan.id,
@@ -128,7 +130,9 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
         setPaymentLoading(false);
       }
       return;
+    }
 
+    // Generic subscription creation logic (should only be reached if paymentMethod is not handled above)
     try {
       const payload = {
         planId: currentPlan.id,
@@ -148,7 +152,6 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
         },
       });
       toast.success(response.data.message || 'Suscripción creada/renovada exitosamente!');
-      // onClose(); // This might be called after successful subscription creation, depending on flow
     } catch (error) {
       toast.error(error.response?.data?.message || 'Error al procesar el pago o crear/renovar la suscripción.');
     } finally {
