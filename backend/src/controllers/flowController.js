@@ -42,7 +42,7 @@ exports.createPayment = async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error('Failed to create Flow payment:', error.response ? error.response.data : error.message);
-    res.status(500).json({ error: 'Failed to create Flow payment' });
+    res.status(500).json({ error: 'Failed to create Flow payment', details: error.response ? error.response.data : error.message });
   }
 };
 
