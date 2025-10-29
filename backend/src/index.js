@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cors({
   origin: ['https://hostreams.com', 'https://hostreams-frontend.0ieu13.easypanel.host'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token'],
 }));
 
 // Servir archivos estáticos (si es necesario, ej. para comprobantes de pago)
