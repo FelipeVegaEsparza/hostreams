@@ -76,6 +76,8 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
           currency: preferredCurrency,
         };
 
+        console.log('Flow.cl payment payload to backend:', flowPayload);
+
         const flowResponse = await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/flow/create-payment', flowPayload, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
