@@ -82,6 +82,8 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
           },
         });
 
+        console.log('Flow.cl create-payment response:', flowResponse.data);
+
         if (flowResponse.data && flowResponse.data.url) {
           window.location.href = flowResponse.data.url; // Redirect to Flow payment page
         } else {
