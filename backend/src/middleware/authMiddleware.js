@@ -14,7 +14,6 @@ module.exports = function (req, res, next) {
 
   // Verificar token
   try {
-    console.log('DEBUG: JWT_SECRET in authMiddleware:', process.env.JWT_SECRET); // TEMPORARY DEBUG LOG
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded.user;
     next();
