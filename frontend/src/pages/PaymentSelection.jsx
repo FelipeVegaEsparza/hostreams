@@ -96,8 +96,8 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
         toast.error(error.response?.data?.message || 'Error al iniciar el pago con Flow.cl.');
       } finally {
         setPaymentLoading(false);
+      }
       return;
-    } else if (paymentMethod === 'paypal') {
       try {
         const paypalPayload = {
           planId: currentPlan.id,
@@ -128,9 +128,6 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
         setPaymentLoading(false);
       }
       return;
-      return;
-      return;
-    }
 
     try {
       const payload = {
