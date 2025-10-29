@@ -34,12 +34,7 @@ const MercadoPagoButton = ({ planId, amount, email, subject }) => {
   };
 
   const handleBuy = async () => {
-    const id = await createPreference();
-    if (id) {
-      setPreferenceId(id);
-      // Redirigir al usuario a la URL de inicio de pago de MercadoPago
-      // La URL de inicio de pago se obtiene de la respuesta del backend (init_point)
-      // En este ejemplo, el backend ya devuelve init_point, así que lo usamos directamente
+    try {
       const response = await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/mercadopago/create-preference', {
         planId,
         amount,
@@ -48,7 +43,12 @@ const MercadoPagoButton = ({ planId, amount, email, subject }) => {
       });
       if (response.data.init_point) {
         window.location.href = response.data.init_point;
+      } else {
+        toast.error('No se pudo obtener la URL de pago de MercadoPago.');
       }
+    } catch (error) {
+      console.error('Error al iniciar el pago con MercadoPago:', error);
+      toast.error('Error al iniciar el pago con MercadoPago.');
     }
   };
 
