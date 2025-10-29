@@ -241,17 +241,26 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
               />
               <span className="ml-3 text-lg">PayPal</span>
             </label>
-            <label className="flex items-center bg-gray-900 p-4 rounded-md cursor-pointer hover:bg-gray-600 transition-colors">
-              <input
-                type="radio"
-                name="paymentMethod"
-                value="mercadopago"
-                checked={paymentMethod === 'mercadopago'}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                className="form-radio h-5 w-5 text-blue-600"
+            {paymentMethod === 'mercadopago' ? (
+              <MercadoPagoButton
+                planId={currentPlan?.id}
+                amount={preferredCurrency === 'CLP' ? currentPlan?.precio_clp : currentPlan?.precio_usd}
+                email={user?.email}
+                subject={`Pago de suscripción Hostreams - Plan ${currentPlan?.nombre}`}
               />
-              <span className="ml-3 text-lg">MercadoPago</span>
-            </label>
+            ) : (
+              <label className="flex items-center bg-gray-900 p-4 rounded-md cursor-pointer hover:bg-gray-600 transition-colors">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="mercadopago"
+                  checked={paymentMethod === 'mercadopago'}
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                  className="form-radio h-5 w-5 text-blue-600"
+                />
+                <span className="ml-3 text-lg">MercadoPago</span>
+              </label>
+            )}
             <label className="flex items-center bg-gray-900 p-4 rounded-md cursor-pointer hover:bg-gray-600 transition-colors">
               <input
                 type="radio"
@@ -276,13 +285,15 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
             </label>
           </div>
 
-          <button
-            onClick={handlePaymentSubmit}
-            disabled={paymentLoading || !paymentMethod}
-            className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded mt-6 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {paymentLoading ? 'Procesando...' : 'Pagar y Suscribirme'}
-          </button>
+          {paymentMethod !== 'mercadopago' && (
+            <button
+              onClick={handlePaymentSubmit}
+              disabled={paymentLoading || !paymentMethod}
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded mt-6 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {paymentLoading ? 'Procesando...' : 'Pagar y Suscribirme'}
+            </button>
+          )}
         </div>
       )}
     </div>

@@ -17,6 +17,7 @@ const manualPaymentRoutes = require('./routes/manualPayment'); // Importar rutas
 const userRoutes = require('./routes/users'); // Importar rutas de usuarios
 const blogRoutes = require('./routes/blog'); // Importar rutas del blog
 const flowRoutes = require('./routes/flow'); // Importar rutas de Flow.cl
+const mercadopagoRoutes = require('./routes/mercadopago'); // Importar rutas de MercadoPago
 
 app.use(express.json());
 app.use(cors({
@@ -46,6 +47,7 @@ app.use('/api/tutoriales', tutorialRoutes); // Usar la nueva ruta
 app.use('/api/manual-payment', manualPaymentRoutes); // Usar rutas de pagos manuales
 app.use('/api/blog', blogRoutes); // Usar rutas del blog
 app.use('/api/flow', flowRoutes); // Usar rutas de Flow.cl
+app.use('/api/mercadopago', mercadopagoRoutes); // Usar rutas de MercadoPago
 
 // Sincronizar base de datos y luego iniciar el servidor
 const syncDatabase = require('./config/sync');

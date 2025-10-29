@@ -1,37 +1,62 @@
-const { MercadoPagoConfig, Preference } = require('mercadopago'); // Importar MercadoPagoConfig y Preference
+const mercadopago = require('mercadopago');
 const { MERCADOPAGO_ACCESS_TOKEN } = process.env;
 
-// Configurar MercadoPago
-const client = new MercadoPagoConfig({ accessToken: MERCADOPAGO_ACCESS_TOKEN });
+mercadopago.configure({
+  access_token: MERCADOPAGO_ACCESS_TOKEN,
+});
 
 exports.createPreference = async (req, res) => {
-  const { planId, title, unit_price, quantity, currency_id } = req.body; // planId para asociar la suscripción
+  const { planId, amount, email, subject, quantity = 1 } = req.body;
 
   try {
-    const preference = new Preference(client); // Crear una instancia de Preference con el cliente configurado
-
-    let preferenceBody = {
+    const preference = {
       items: [
         {
-          title: title,
-          unit_price: parseFloat(unit_price),
-          quantity: parseInt(quantity),
-          currency_id: currency_id,
+          title: subject || `Suscripción Hostreams - Plan ${planId}`,
+          unit_price: Number(amount),
+          quantity: Number(quantity),
         },
       ],
       back_urls: {
-        success: 'http://localhost:3001/payment-success', // URL de éxito en el frontend
-        failure: 'http://localhost:3001/payment-cancel', // URL de fallo en el frontend
-        pending: 'http://localhost:3001/payment-pending', // URL de pendiente en el frontend
+        success: "https://hostreams-frontend.0ieu13.easypanel.host/payment-success", // URL de éxito en el frontend
+        failure: "https://hostreams-frontend.0ieu13.easypanel.host/payment-cancel", // URL de fallo en el frontend
+        pending: "https://hostreams-frontend.0ieu13.easypanel.host/payment-pending", // URL pendiente en el frontend
       },
-      auto_return: 'approved',
-      external_reference: planId, // Puedes usar esto para identificar el plan o la suscripción
+      auto_return: "approved",
+      external_reference: `planId-${planId}-user-${email}-${Date.now()}`, // Referencia externa para identificar la transacción
+      notification_url: "https://hostreams-hostreams.0ieu13.easypanel.host/api/mercadopago/webhook", // URL para notificaciones de MercadoPago
     };
 
-    const response = await preference.create({ body: preferenceBody }); // Usar la instancia de Preference
-    res.json({ id: response.id, init_point: response.init_point }); // Ajustar la respuesta
+    const response = await mercadopago.preferences.create(preference);
+    res.json({
+      id: response.body.id,
+      init_point: response.body.init_point,
+    });
   } catch (error) {
-    console.error('Failed to create preference:', error.message);
-    res.status(500).json({ error: 'Failed to create preference' });
+    console.error('Error al crear preferencia de MercadoPago:', error);
+    res.status(500).json({ error: 'Error al crear preferencia de MercadoPago' });
+  }
+};
+
+exports.receiveWebhook = async (req, res) => {
+  const { query } = req;
+  const topic = query.topic || query.type; // 'payment' o 'merchant_order'
+
+  try {
+    if (topic === 'payment') {
+      const paymentId = query.id || query['data.id'];
+      const payment = await mercadopago.payment.findById(paymentId);
+      // Aquí puedes actualizar el estado de tu suscripción o pago en tu base de datos
+      console.log('MercadoPago Payment:', payment.body);
+    } else if (topic === 'merchant_order') {
+      const merchantOrderId = query.id || query['data.id'];
+      const merchantOrder = await mercadopago.merchant_orders.findById(merchantOrderId);
+      console.log('MercadoPago Merchant Order:', merchantOrder.body);
+    }
+
+    res.status(200).send('Webhook recibido');
+  } catch (error) {
+    console.error('Error al procesar webhook de MercadoPago:', error);
+    res.status(500).json({ error: 'Error al procesar webhook de MercadoPago' });
   }
 };
