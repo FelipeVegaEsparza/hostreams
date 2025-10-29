@@ -31,9 +31,9 @@ const TestimonialCard = ({ author, children }) => (
 
 const Home = () => {
   const bannerImages = [
-    `${import.meta.env.VITE_API_BASE_URL}banner1.webp`,
-    `${import.meta.env.VITE_API_BASE_URL}banner2.webp`,
-    `${import.meta.env.VITE_API_BASE_URL}banner3.webp`,
+    `/banner1.webp`,
+    `/banner2.webp`,
+    `/banner3.webp`,
   ];
   const [currentBanner, setCurrentBanner] = useState(0);
   const [plans, setPlans] = useState([]);
@@ -267,7 +267,7 @@ const Home = () => {
           <h2 className="text-5xl font-extrabold mb-16 text-white">Nuestro Panel de Control</h2> {/* Increased font size and weight, more margin */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-12 max-w-5xl mx-auto"> {/* Increased gap */}
             <div className="md:w-1/2">
-              <img src={`${import.meta.env.VITE_API_BASE_URL}dashboard.webp`} alt="Hostreams Dashboard" className="rounded-xl border border-gray-700 shadow-xl transition-transform duration-300 hover:scale-105" /> {/* Added border, stronger shadow, rounded-xl, and hover effect */}
+              <img src="/dashboard.webp" alt="Hostreams Dashboard" className="rounded-xl border border-gray-700 shadow-xl transition-transform duration-300 hover:scale-105" /> {/* Added border, stronger shadow, rounded-xl, and hover effect */}
             </div>
             <div className="md:w-1/2 text-left space-y-6 border-l-4 border-blue-500 pl-4"> {/* Added space-y-6 for paragraph spacing, left border and padding */}
               <h3 className="text-4xl font-bold text-blue-400 mb-4">Un panel para administrar tu contenido</h3> {/* Increased font size, highlighted title color */}
