@@ -40,8 +40,7 @@ exports.register = async (req, res) => {
 
     jwt.sign(
       payload,
-      process.env.JWT_SECRET, // Se definirá en .env
-      { expiresIn: '1h' },
+      { expiresIn: '24h' },
       (err, token) => {
         if (err) { throw err; }
         res.json({ token });
@@ -93,7 +92,7 @@ exports.login = async (req, res) => {
     jwt.sign(
       payload,
       process.env.JWT_SECRET,
-      { expiresIn: '1h' },
+      { expiresIn: '24h' },
       (err, token) => {
         if (err) {
           console.error('Error al firmar JWT:', err);
