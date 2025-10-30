@@ -98,37 +98,7 @@ const PlanManagement = () => {
     setFormData(initialFormState);
   }
 
-  const deletePlan = async (id) => {
-    if (window.confirm('¿Eliminar este plan? Esta acción no se puede deshacer.')) {
-      try {
-        const token = localStorage.getItem('token');
-        const config = { headers: { 'x-auth-token': token } };
-        await axios.delete(import.meta.env.VITE_API_BASE_URL + `api/plans/${id}`, config);
-        toast.success('Plan eliminado.');
-        fetchPlans();
-      } catch (err) {
-        toast.error('Error al eliminar el plan.');
-      }
-    }
-  };
-
-const FormInput = ({ label, ...props }) => (
-  <div>
-    <label className="block text-gray-300 text-sm font-semibold mb-2">{label}</label>
-    <input {...props} className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" />
-  </div>
-);
-
-const FormSelect = ({ label, children, ...props }) => (
-  <div>
-    <label className="block text-gray-300 text-sm font-semibold mb-2">{label}</label>
-    <select {...props} className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500">
-      {children}
-    </select>
-  </div>
-);
-
-const PlanManagement = () => {
+  return (
     <div className="bg-gray-900 text-white min-h-[calc(100vh-64px)] py-20 px-4">
       <div className="container mx-auto max-w-7xl">
         <div className="flex justify-between items-center mb-12">
@@ -201,8 +171,8 @@ const PlanManagement = () => {
                         </span>
                       </td>
                       <td className="p-4 flex justify-end space-x-2">
-                        <button onClick={() => handleEditClick(plan)} className="bg-yellow-500/20 text-yellow-300 py-1 px-3 rounded-md text-xs hover:bg-yellow-500/40 transition-colors">Editar</button>
                         <button onClick={() => deletePlan(plan.id)} className="bg-red-500/20 text-red-300 py-1 px-3 rounded-md text-xs hover:bg-red-500/40 transition-colors">Eliminar</button>
+                        <button onClick={() => handleEditClick(plan)} className="bg-yellow-500/20 text-yellow-300 py-1 px-3 rounded-md text-xs hover:bg-yellow-500/40 transition-colors">Editar</button>
                       </td>
                     </tr>
                   ))}
@@ -215,5 +185,35 @@ const PlanManagement = () => {
     </div>
   );
 };
+
+const deletePlan = async (id) => {
+  if (window.confirm('¿Eliminar este plan? Esta acción no se puede deshacer.')) {
+    try {
+      const token = localStorage.getItem('token');
+      const config = { headers: { 'x-auth-token': token } };
+      await axios.delete(import.meta.env.VITE_API_BASE_URL + `api/plans/${id}`, config);
+      toast.success('Plan eliminado.');
+      fetchPlans();
+    } catch (err) {
+      toast.error('Error al eliminar el plan.');
+    }
+  }
+};
+
+const FormInput = ({ label, ...props }) => (
+  <div>
+    <label className="block text-gray-300 text-sm font-semibold mb-2">{label}</label>
+    <input {...props} className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-500" />
+  </div>
+);
+
+const FormSelect = ({ label, children, ...props }) => (
+  <div>
+    <label className="block text-gray-300 text-sm font-semibold mb-2">{label}</label>
+    <select {...props} className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-500">
+      {children}
+    </select>
+  </div>
+);
 
 export default PlanManagement;
