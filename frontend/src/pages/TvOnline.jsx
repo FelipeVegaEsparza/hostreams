@@ -124,6 +124,7 @@ const TvOnline = () => {
               <div key={plan.id} className="glass-card rounded-2xl p-8 flex flex-col">
                 <div className="flex-grow">
                   <h3 className="text-3xl font-extrabold text-white mb-4">{plan.nombre}</h3>
+                  <p className="text-gray-300 mb-6 leading-relaxed">{plan.descripcion}</p>
                   <ul className="list-none text-gray-300 mb-8 space-y-3">
                     {parseFeatures(plan.caracteristicas).map((feature, index) => (
                       <li key={index} className="flex items-center">
