@@ -112,23 +112,23 @@ const PlanManagement = () => {
     }
   };
 
-  const FormInput = ({ label, ...props }) => (
-    <div>
-      <label className="block text-gray-300 text-sm font-semibold mb-2">{label}</label>
-      <input {...props} className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" />
-    </div>
-  );
+const FormInput = ({ label, ...props }) => (
+  <div>
+    <label className="block text-gray-300 text-sm font-semibold mb-2">{label}</label>
+    <input {...props} className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" />
+  </div>
+);
 
-  const FormSelect = ({ label, children, ...props }) => (
-    <div>
-      <label className="block text-gray-300 text-sm font-semibold mb-2">{label}</label>
-      <select {...props} className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500">
-        {children}
-      </select>
-    </div>
-  );
+const FormSelect = ({ label, children, ...props }) => (
+  <div>
+    <label className="block text-gray-300 text-sm font-semibold mb-2">{label}</label>
+    <select {...props} className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 px-3 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500">
+      {children}
+    </select>
+  </div>
+);
 
-  return (
+const PlanManagement = () => {
     <div className="bg-gray-900 text-white min-h-[calc(100vh-64px)] py-20 px-4">
       <div className="container mx-auto max-w-7xl">
         <div className="flex justify-between items-center mb-12">
@@ -179,6 +179,7 @@ const PlanManagement = () => {
                 <thead className="border-b border-gray-700">
                   <tr>
                     <th className="p-4">Nombre</th>
+                    <th className="p-4">Descripción</th>
                     <th className="p-4">Categoría</th>
                     <th className="p-4">Precios (CLP/USD)</th>
                     <th className="p-4">Periodo</th>
@@ -190,6 +191,7 @@ const PlanManagement = () => {
                   {plans.map((plan) => (
                     <tr key={plan.id} className="border-b border-gray-800 hover:bg-gray-800/50">
                       <td className="p-4 font-medium">{plan.nombre}</td>
+                      <td className="p-4">{plan.descripcion}</td>
                       <td className="p-4">{plan.categoria}</td>
                       <td className="p-4">${Math.floor(plan.precio_clp)} / ${Math.floor(plan.precio_usd)}</td>
                       <td className="p-4">{plan.periodo}</td>
