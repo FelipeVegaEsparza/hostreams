@@ -17,7 +17,7 @@ const Plans = () => {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}plans`);
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/plans`);
         if (Array.isArray(response.data)) {
           setAllPlans(response.data);
         } else {
