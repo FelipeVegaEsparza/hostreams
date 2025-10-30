@@ -78,11 +78,18 @@ const PlanManagement = () => {
       precio_clp: plan.precio_clp,
       precio_usd: plan.precio_usd,
       periodo: plan.periodo,
-      caracteristicas: Array.isArray(plan.caracteristicas)
-        ? plan.caracteristicas.join(', ')
-        : (typeof plan.caracteristicas === 'string' && plan.caracteristicas.trim() !== '')
-          ? JSON.parse(plan.caracteristicas).join(', ')
-          : '',
+      caracteristicas: (() => {
+        let features = plan.caracteristicas;
+        if (typeof features === 'string' && features.trim() !== '') {
+          try {
+            features = JSON.parse(features);
+          } catch (e) {
+            console.error("Error parsing caracteristicas JSON string:", e);
+            features = []; // Fallback to empty array on parse error
+          }
+        }
+        return Array.isArray(features) ? features.join(', ') : '';
+      })(),
       estado: plan.estado,
       categoria: plan.categoria,
     });
