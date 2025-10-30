@@ -74,11 +74,15 @@ const PlanManagement = () => {
     setCurrentPlan(plan);
     setFormData({
       nombre: plan.nombre,
-      descripcion: plan.descripcion,
+      descripcion: plan.descripcion || '',
       precio_clp: plan.precio_clp,
       precio_usd: plan.precio_usd,
       periodo: plan.periodo,
-      caracteristicas: Array.isArray(plan.caracteristicas) ? plan.caracteristicas.join(', ') : '',
+      caracteristicas: Array.isArray(plan.caracteristicas)
+        ? plan.caracteristicas.join(', ')
+        : (typeof plan.caracteristicas === 'string' && plan.caracteristicas.trim() !== '')
+          ? JSON.parse(plan.caracteristicas).join(', ')
+          : '',
       estado: plan.estado,
       categoria: plan.categoria,
     });
