@@ -18,8 +18,8 @@ const Tutoriales = () => {
     const fetchTutorialData = async () => {
       try {
         const [categoriesRes, tutorialsRes] = await Promise.all([
-          axios.get(import.meta.env.VITE_API_BASE_URL + '/api/tutorial-categorias'),
-          axios.get(import.meta.env.VITE_API_BASE_URL + '/api/tutoriales'),
+          axios.get(import.meta.env.VITE_API_BASE_URL + 'api/tutorial-categorias'),
+          axios.get(import.meta.env.VITE_API_BASE_URL + 'api/tutoriales'),
         ]);
         setCategories(categoriesRes.data);
         setTutorials(tutorialsRes.data);

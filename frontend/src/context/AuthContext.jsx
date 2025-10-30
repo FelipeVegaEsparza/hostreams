@@ -27,8 +27,8 @@ export const AuthProvider = ({ children }) => {
     const loadUser = async () => {
       if (token) {
         try {
-          console.log('Fetching user from URL:', import.meta.env.VITE_API_BASE_URL + '/api/auth/me');
-          const response = await axios.get(import.meta.env.VITE_API_BASE_URL + '/api/auth/me'); // Obtener datos del usuario real
+          console.log('Fetching user from URL:', import.meta.env.VITE_API_BASE_URL + 'api/auth/me');
+          const response = await axios.get(import.meta.env.VITE_API_BASE_URL + 'api/auth/me'); // Obtener datos del usuario real
           console.log('Response from api/auth/me:', response.data);
           setUser(response.data);
         } catch (error) {
@@ -46,8 +46,8 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      console.log('Login URL:', import.meta.env.VITE_API_BASE_URL + '/api/auth/login');
-      const response = await axios.post(import.meta.env.VITE_API_BASE_URL + '/api/auth/login', { email, password });
+      console.log('Login URL:', import.meta.env.VITE_API_BASE_URL + 'api/auth/login');
+      const response = await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/auth/login', { email, password });
       setToken(response.data.token);
       localStorage.setItem('token', response.data.token);
       setUser(response.data.user); // Usar el usuario real del backend
@@ -62,8 +62,8 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      console.log('Register URL:', import.meta.env.VITE_API_BASE_URL + '/api/auth/register');
-      const response = await axios.post(import.meta.env.VITE_API_BASE_URL + '/api/auth/register', userData);
+      console.log('Register URL:', import.meta.env.VITE_API_BASE_URL + 'api/auth/register');
+      const response = await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/auth/register', userData);
       setToken(response.data.token);
       localStorage.setItem('token', response.data.token);
       setUser(response.data.user); // Usar el usuario real del backend

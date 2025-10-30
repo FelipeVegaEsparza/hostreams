@@ -29,7 +29,7 @@ const PlanManagement = () => {
     try {
       const token = localStorage.getItem('token');
       const config = { headers: { 'x-auth-token': token } };
-      const response = await axios.get(import.meta.env.VITE_API_BASE_URL + '/api/plans/all', config);
+      const response = await axios.get(import.meta.env.VITE_API_BASE_URL + 'api/plans/all', config);
       setPlans(response.data);
     } catch (err) {
       toast.error('Error al cargar los planes.');
@@ -55,10 +55,10 @@ const PlanManagement = () => {
       };
 
       if (isEditing) {
-        await axios.put(import.meta.env.VITE_API_BASE_URL + `/api/plans/${currentPlan.id}`, planData, config);
+        await axios.put(import.meta.env.VITE_API_BASE_URL + `api/plans/${currentPlan.id}`, planData, config);
         toast.success('Plan actualizado.');
       } else {
-        await axios.post(import.meta.env.VITE_API_BASE_URL + '/api/plans', planData, config);
+        await axios.post(import.meta.env.VITE_API_BASE_URL + 'api/plans', planData, config);
         toast.success('Plan creado.');
       }
       setIsFormVisible(false);
@@ -191,7 +191,7 @@ const deletePlan = async (id) => {
     try {
       const token = localStorage.getItem('token');
       const config = { headers: { 'x-auth-token': token } };
-      await axios.delete(import.meta.env.VITE_API_BASE_URL + `/api/plans/${id}`, config);
+      await axios.delete(import.meta.env.VITE_API_BASE_URL + `api/plans/${id}`, config);
       toast.success('Plan eliminado.');
       fetchPlans();
     } catch (err) {
