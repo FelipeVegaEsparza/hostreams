@@ -31,7 +31,7 @@ exports.createPayment = async (req, res) => {
 
     params.s = generateFlowSign(params, FLOW_SECRET_KEY);
 
-    const encodedParams = new URLSearchParams(params).toString();
+    const encodedParams = new URLSearchParams(params);
 
     const response = await axios.post(`${FLOW_API_URL}/payment/create`, encodedParams, {
       headers: {
