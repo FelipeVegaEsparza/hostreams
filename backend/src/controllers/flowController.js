@@ -31,9 +31,9 @@ const calcularFechaRenovacion = (periodo) => {
   return fecha;
 };
 
-// --- Controladores Exportados ---
+// --- Definición de Controladores ---
 
-exports.createPayment = async (req, res) => {
+const createPayment = async (req, res) => {
   const { planId, amount, email, subject, currency } = req.body;
 
   try {
@@ -65,7 +65,7 @@ exports.createPayment = async (req, res) => {
   }
 };
 
-exports.getPaymentStatus = async (req, res) => {
+const getPaymentStatus = async (req, res) => {
   const { token } = req.body;
 
   try {
@@ -89,7 +89,7 @@ exports.getPaymentStatus = async (req, res) => {
   }
 };
 
-exports.confirmPayment = async (req, res) => {
+const confirmPayment = async (req, res) => {
   const { token } = req.body;
 
   if (!token) {
@@ -164,4 +164,11 @@ exports.confirmPayment = async (req, res) => {
     console.error('Error procesando la confirmación de Flow:', error.response ? error.response.data : error.message);
     res.status(500).send('Error interno al procesar la notificación.');
   }
+};
+
+// --- Exportación del Módulo ---
+module.exports = {
+  createPayment,
+  getPaymentStatus,
+  confirmPayment,
 };
