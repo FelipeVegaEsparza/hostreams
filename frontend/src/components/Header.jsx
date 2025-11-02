@@ -19,7 +19,7 @@ const NavItem = ({ to, icon, children }) => (
 
 const Header = () => {
   const { currency, setCurrency } = useCurrency();
-  const { user, logout } = useAuth(); // Use useAuth hook
+  const { user, logout, loading } = useAuth(); // Use useAuth hook and get loading state
   const navigate = useNavigate();
 
   const isLoggedIn = !!user;
@@ -48,18 +48,22 @@ const Header = () => {
         </nav>
 
         <div className="hidden md:flex items-center space-x-3">
-          {isLoggedIn ? (
+          {!loading && (
             <>
-              {isAdmin && <NavItem to="/admin" icon={faCog}>Admin</NavItem>}
-              <NavItem to="/my-account" icon={faUser}>Mi Cuenta</NavItem>
-              <button onClick={handleLogout} className="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 text-blue-200 hover:bg-blue-800/50 hover:text-white">
-                Salir
-              </button>
-            </>
-          ) : (
-            <>
-              <NavItem to="/login" icon={faSignInAlt}>Login</NavItem>
-              <NavItem to="/register" icon={faUserPlus}>Registro</NavItem>
+              {isLoggedIn ? (
+                <>
+                  {isAdmin && <NavItem to="/admin" icon={faCog}>Admin</NavItem>}
+                  <NavItem to="/my-account" icon={faUser}>Mi Cuenta</NavItem>
+                  <button onClick={handleLogout} className="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 text-blue-200 hover:bg-blue-800/50 hover:text-white">
+                    Salir
+                  </button>
+                </>
+              ) : (
+                <>
+                  <NavItem to="/login" icon={faSignInAlt}>Login</NavItem>
+                  <NavItem to="/register" icon={faUserPlus}>Registro</NavItem>
+                </>
+              )}
             </>
           )}
           
