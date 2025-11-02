@@ -173,15 +173,8 @@ module.exports = {
   confirmPayment,
 };
 
-// Función de prueba para diagnosticar conectividad
-const testWebhook = (req, res) => {
-  console.log('¡ÉXITO! La ruta de prueba del webhook GET fue alcanzada correctamente.');
-  res.status(200).send('Ruta de prueba de webhook alcanzada. Revisa los logs de tu backend.');
-};
-
 module.exports = {
   createPayment,
   getPaymentStatus,
   confirmPayment,
-  testWebhook, // Exportar la nueva función
 };
