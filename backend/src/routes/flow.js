@@ -17,4 +17,9 @@ router.post('/payment-status', flowController.getPaymentStatus);
 // @access  Public
 router.post('/confirm-payment', flowController.confirmPayment);
 
+// @route   GET api/flow/test-webhook
+// @desc    Ruta de prueba para verificar la conectividad del webhook.
+// @access  Public
+router.get('/test-webhook', flowController.testWebhook);
+
 module.exports = router;
