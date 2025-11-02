@@ -1,5 +1,6 @@
 const axios = require('axios');
 const crypto = require('crypto');
+const querystring = require('querystring');
 const { FLOW_API_KEY, FLOW_SECRET_KEY, FLOW_API_URL, FLOW_SUCCESS_URL, FLOW_FAILURE_URL, FLOW_CONFIRMATION_URL } = process.env;
 
 // Función auxiliar para generar el 'sign' requerido por Flow.cl
@@ -31,9 +32,7 @@ exports.createPayment = async (req, res) => {
 
     params.s = generateFlowSign(params, FLOW_SECRET_KEY);
 
-    const encodedParams = new URLSearchParams(params);
-
-    const response = await axios.post(`${FLOW_API_URL}/payment/create`, encodedParams, {
+    const response = await axios.post(`${FLOW_API_URL}/payment/create`, querystring.stringify(params), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
