@@ -11,11 +11,11 @@ const EditSubscriptionModal = ({ subscription, onClose, onSave }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
       <div className="bg-gray-800 rounded-lg p-6 w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4">Editar Suscripción #{subscription.id}</h2>
         <div className="mb-4">
-          <label htmlFor="status" className="block text-sm font-medium text-gray-300 mb-2">Estado de la Suscripción</label>
+          <label htmlFor="status" className="block text-sm font-medium text-gray-300 mb-2">Estado</label>
           <select
             id="status"
             value={status}
@@ -29,7 +29,7 @@ const EditSubscriptionModal = ({ subscription, onClose, onSave }) => {
         </div>
         <div className="flex justify-end space-x-4">
           <button onClick={onClose} className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">Cancelar</button>
-          <button onClick={handleSave} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Guardar Cambios</button>
+          <button onClick={handleSave} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Guardar</button>
         </div>
       </div>
     </div>
@@ -40,8 +40,6 @@ const SubscriptionManagement = () => {
   const [subscriptions, setSubscriptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingSubscription, setEditingSubscription] = useState(null);
-
-  // Estados para los filtros
   const [statusFilter, setStatusFilter] = useState('all');
   const [paymentMethodFilter, setPaymentMethodFilter] = useState('all');
 
@@ -52,7 +50,6 @@ const SubscriptionManagement = () => {
         setSubscriptions(response.data);
       } catch (error) {
         toast.error('Error al cargar suscripciones.');
-        console.error('Error fetching subscriptions:', error);
       } finally {
         setLoading(false);
       }
@@ -64,23 +61,21 @@ const SubscriptionManagement = () => {
     try {
       const response = await axios.put(`${import.meta.env.VITE_API_BASE_URL}api/admin/subscriptions/${id}/status`, { estado: newStatus });
       setSubscriptions(subscriptions.map(sub => (sub.id === id ? response.data : sub)));
-      toast.success(`Suscripción #${id} actualizada a ${newStatus}.`);
+      toast.success(`Suscripción #${id} actualizada.`);
       setEditingSubscription(null);
     } catch (error) {
       toast.error('Error al actualizar la suscripción.');
-      console.error('Error updating subscription:', error);
     }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm(`¿Estás seguro de que quieres eliminar la suscripción #${id}? Esta acción no se puede deshacer.`)) {
+    if (window.confirm(`¿Seguro que quieres eliminar la suscripción #${id}?`)) {
       try {
         await axios.delete(`${import.meta.env.VITE_API_BASE_URL}api/admin/subscriptions/${id}`);
         setSubscriptions(subscriptions.filter(sub => sub.id !== id));
         toast.success(`Suscripción #${id} eliminada.`);
       } catch (error) {
         toast.error('Error al eliminar la suscripción.');
-        console.error('Error deleting subscription:', error);
       }
     }
   };
@@ -102,7 +97,6 @@ const SubscriptionManagement = () => {
       <div className="container mx-auto">
         <h1 className="text-3xl font-bold mb-6">Gestión de Suscripciones</h1>
 
-        {/* Filtros */}
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6 p-4 bg-gray-800 rounded-lg">
           <div>
             <label htmlFor="statusFilter" className="block text-sm font-medium text-gray-300 mb-1">Filtrar por Estado</label>
@@ -127,8 +121,8 @@ const SubscriptionManagement = () => {
         {filteredSubscriptions.length === 0 ? (
           <p className="text-center py-8">No hay suscripciones que coincidan con los filtros seleccionados.</p>
         ) : (
-          <div className="overflow-x-auto shadow-lg rounded-lg">
-            <table className="min-w-full bg-gray-800">
+          <div className="shadow-lg rounded-lg overflow-hidden">
+            <table className="min-w-full bg-gray-800 hidden md:table">
               <thead className="bg-gray-700">
                 <tr>
                   {['ID', 'Usuario', 'Plan', 'Método Pago', 'Monto', 'Estado', 'Inicio', 'Renovación', 'Acciones'].map(head => <th key={head} className="py-3 px-4 text-left text-sm font-semibold text-gray-300 uppercase tracking-wider">{head}</th>)}
@@ -140,7 +134,7 @@ const SubscriptionManagement = () => {
                     <td className="py-3 px-4 text-sm font-mono">{sub.id}</td>
                     <td className="py-3 px-4 text-sm">{sub.User?.nombre || 'N/A'} ({sub.User?.email})</td>
                     <td className="py-3 px-4 text-sm">{sub.Plan?.nombre || 'N/A'}</td>
-                    <td className="py-3 px-4 text-sm"><span className={`px-2 py-1 rounded-full text-xs font-semibold ${sub.metodo_pago === 'Flow' ? 'bg-blue-900 text-blue-200' : 'bg-green-900 text-green-200'}`}>{sub.metodo_pago}</span></td>
+                    <td className="py-3 px-4 text-sm"><span className={`px-2 py-1 rounded-full text-xs font-semibold`}>{sub.metodo_pago}</span></td>
                     <td className="py-3 px-4 text-sm">{sub.moneda} {sub.monto}</td>
                     <td className="py-3 px-4 text-sm"><span className={`px-2 py-1 rounded-full text-xs font-semibold ${sub.estado === 'activa' ? 'bg-green-500' : sub.estado === 'cancelada' ? 'bg-red-500' : 'bg-yellow-500'}`}>{sub.estado}</span></td>
                     <td className="py-3 px-4 text-sm">{new Date(sub.fecha_inicio).toLocaleDateString()}</td>
@@ -153,6 +147,26 @@ const SubscriptionManagement = () => {
                 ))}
               </tbody>
             </table>
+            <div className="md:hidden space-y-4">
+              {filteredSubscriptions.map((sub) => (
+                <div key={sub.id} className="bg-gray-800 rounded-lg p-4 space-y-3">
+                  <div className="flex justify-between items-center">
+                    <div className="font-bold text-lg">{sub.User?.nombre || 'N/A'}</div>
+                    <div className="text-sm font-mono text-gray-400">ID: {sub.id}</div>
+                  </div>
+                  <div className="text-sm"><strong className="text-gray-400">Plan:</strong> {sub.Plan?.nombre || 'N/A'}</div>
+                  <div className="text-sm"><strong className="text-gray-400">Monto:</strong> {sub.moneda} {sub.monto}</div>
+                  <div className="text-sm"><strong className="text-gray-400">Renovación:</strong> {new Date(sub.fecha_renovacion).toLocaleDateString()}</div>
+                  <div className="flex justify-between items-center pt-2 border-t border-gray-700 mt-2">
+                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${sub.estado === 'activa' ? 'bg-green-500' : sub.estado === 'cancelada' ? 'bg-red-500' : 'bg-yellow-500'}`}>{sub.estado}</span>
+                    <div className="flex items-center space-x-2">
+                      <button onClick={() => setEditingSubscription(sub)} className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs">Editar</button>
+                      <button onClick={() => handleDelete(sub.id)} className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs">Eliminar</button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
