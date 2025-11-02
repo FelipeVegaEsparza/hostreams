@@ -10,7 +10,7 @@ const NavItem = ({ to, icon, children, onClick }) => (
     to={to}
     onClick={onClick}
     className={({ isActive }) => 
-      `flex items-center px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 ${isActive ? 'bg-blue-900/50 text-white' : 'text-blue-200 hover:bg-blue-800/50 hover:text-white'}`
+      `flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${isActive ? 'bg-blue-900/50 text-white' : 'text-blue-200 hover:bg-blue-800/50 hover:text-white'}`
     }
   >
     <FontAwesomeIcon icon={icon} className="w-5 h-5 mr-3" />
@@ -110,7 +110,7 @@ const Header = () => {
                   <>
                     {isAdmin && <NavItem to="/admin" icon={faCog}>Admin</NavItem>}
                     <NavItem to="/my-account" icon={faUser}>Mi Cuenta</NavItem>
-                    <button onClick={handleLogout} className="flex items-center w-full px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 text-blue-200 hover:bg-blue-800/50 hover:text-white">
+                    <button onClick={handleLogout} className="flex items-center w-full px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 text-blue-200 hover:bg-blue-800/50 hover:text-white">
                       <FontAwesomeIcon icon={faSignInAlt} className="w-5 h-5 mr-3 transform rotate-180" />
                       <span>Salir</span>
                     </button>
