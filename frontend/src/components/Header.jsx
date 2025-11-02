@@ -1,51 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useCurrency } from '../context/CurrencyContext';
-import { useAuth } from '../context/AuthContext'; // Import useAuth
+import { useAuth } from '../context/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRadio, faTv, faFileAlt, faUser, faCog, faSignInAlt, faUserPlus, faEnvelope, faBookOpen, faHome } from '@fortawesome/free-solid-svg-icons';
+import { faRadio, faTv, faFileAlt, faUser, faCog, faSignInAlt, faUserPlus, faEnvelope, faBookOpen, faHome, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const NavItem = ({ to, icon, children }) => (
+const NavItem = ({ to, icon, children, onClick }) => (
   <NavLink
     to={to}
+    onClick={onClick}
     className={({ isActive }) => 
-      `flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${isActive ? 'bg-blue-900/50 text-white' : 'text-blue-200 hover:bg-blue-800/50 hover:text-white'}`
+      `flex items-center px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 ${isActive ? 'bg-blue-900/50 text-white' : 'text-blue-200 hover:bg-blue-800/50 hover:text-white'}`
     }
   >
-    <FontAwesomeIcon icon={icon} className="w-5 h-5 mr-2" />
+    <FontAwesomeIcon icon={icon} className="w-5 h-5 mr-3" />
     <span>{children}</span>
   </NavLink>
 );
 
 const Header = () => {
   const { currency, setCurrency } = useCurrency();
-  const { user, logout, loading } = useAuth(); // Use useAuth hook and get loading state
+  const { user, logout, loading } = useAuth();
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const isLoggedIn = !!user;
   const isAdmin = user?.rol === 'admin';
 
   const handleLogout = () => {
-    logout(); // Use logout from AuthContext
-    navigate('/'); // Redirect to homepage
+    logout();
+    setIsMenuOpen(false);
+    navigate('/');
   };
 
+  // Cierra el menú al cambiar de ruta
+  const location = useLocation();
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
+
+  const renderNavLinks = (isMobile = false) => (
+    <div className={isMobile ? 'flex flex-col space-y-2 px-2 pt-2 pb-3' : 'hidden md:flex items-center space-x-1'}>
+      <NavItem to="/" icon={faHome}>Inicio</NavItem>
+      <NavItem to="/radio-online" icon={faRadio}>Radio Online</NavItem>
+      <NavItem to="/tv-online" icon={faTv}>TV Online</NavItem>
+      <NavItem to="/tutoriales" icon={faBookOpen}>Tutoriales</NavItem>
+      <NavItem to="/desarrollo-personalizado" icon={faFileAlt}>Personalizado</NavItem>
+      <NavItem to="/contact" icon={faEnvelope}>Contacto</NavItem>
+      <NavItem to="/blog" icon={faBookOpen}>Blog</NavItem>
+    </div>
+  );
+
   return (
-    <header className="bg-gray-900/80 backdrop-blur-lg text-white p-4 shadow-lg sticky top-0 z-40">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="flex items-center">
+    <header className="bg-gray-900/80 backdrop-blur-lg text-white shadow-lg sticky top-0 z-40">
+      <div className="container mx-auto flex justify-between items-center p-4">
+        <Link to="/" className="flex items-center flex-shrink-0">
           <img src="/logo.png" alt="Hostreams Logo" className="h-10 w-auto" />
         </Link>
         
-        <nav className="hidden md:flex items-center space-x-2 bg-gray-800/50 border border-gray-700 rounded-full px-4 py-2">
-          <NavItem to="/" icon={faHome}>Inicio</NavItem>
-          <NavItem to="/radio-online" icon={faRadio}>Radio Online</NavItem>
-          <NavItem to="/tv-online" icon={faTv}>TV Online</NavItem>
-          <NavItem to="/tutoriales" icon={faBookOpen}>Tutoriales</NavItem>
-          <NavItem to="/desarrollo-personalizado" icon={faFileAlt}>Personalizado</NavItem> {/* Added NavItem */}
-          <NavItem to="/contact" icon={faEnvelope}>Contacto</NavItem>
-          <NavItem to="/blog" icon={faBookOpen}>Blog</NavItem>
-        </nav>
+        <div className="hidden md:flex items-center space-x-2 bg-gray-800/50 border border-gray-700 rounded-full px-3">
+          {renderNavLinks()}
+        </div>
 
         <div className="hidden md:flex items-center space-x-3">
           {!loading && (
@@ -66,7 +81,6 @@ const Header = () => {
               )}
             </>
           )}
-          
           <select
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
@@ -77,11 +91,41 @@ const Header = () => {
           </select>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          {/* Add mobile menu logic here if needed */}
+        {/* Botón del Menú Móvil */}
+        <div className="md:hidden flex items-center">
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-blue-200 hover:text-white focus:outline-none">
+            <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} className="w-6 h-6" />
+          </button>
         </div>
       </div>
+
+      {/* Panel del Menú Móvil */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-gray-800/95 backdrop-blur-sm">
+          {renderNavLinks(true)}
+          <div className="border-t border-gray-700 px-2 pt-3 pb-3 space-y-2">
+            {!loading && (
+              <>
+                {isLoggedIn ? (
+                  <>
+                    {isAdmin && <NavItem to="/admin" icon={faCog}>Admin</NavItem>}
+                    <NavItem to="/my-account" icon={faUser}>Mi Cuenta</NavItem>
+                    <button onClick={handleLogout} className="flex items-center w-full px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 text-blue-200 hover:bg-blue-800/50 hover:text-white">
+                      <FontAwesomeIcon icon={faSignInAlt} className="w-5 h-5 mr-3 transform rotate-180" />
+                      <span>Salir</span>
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <NavItem to="/login" icon={faSignInAlt}>Login</NavItem>
+                    <NavItem to="/register" icon={faUserPlus}>Registro</NavItem>
+                  </>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 };
