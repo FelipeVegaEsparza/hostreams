@@ -43,8 +43,11 @@ exports.register = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '24h' },
       (err, token) => {
-        if (err) { throw err; }
-        res.json({ token });
+        // Excluir la contraseña del objeto de usuario antes de enviarlo
+        const userResponse = user.toJSON();
+        delete userResponse.contrasena;
+
+        res.json({ token, user: userResponse });
       }
     );
 
@@ -99,7 +102,11 @@ exports.login = async (req, res) => {
           console.error('Error al firmar JWT:', err);
           return res.status(500).send('Error del servidor al generar token');
         }
-        res.json({ token });
+        // Excluir la contraseña del objeto de usuario antes de enviarlo
+        const userResponse = user.toJSON();
+        delete userResponse.contrasena;
+
+        res.json({ token, user: userResponse });
       }
     );
 
