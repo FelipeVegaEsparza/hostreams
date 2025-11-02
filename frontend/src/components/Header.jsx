@@ -42,8 +42,8 @@ const Header = () => {
   const renderNavLinks = (isMobile = false) => (
     <div className={isMobile ? 'flex flex-col space-y-2 px-2 pt-2 pb-3' : 'hidden md:flex items-center space-x-1'}>
       <NavItem to="/" icon={faHome}>Inicio</NavItem>
-      <NavItem to="/radio-online" icon={faRadio}>Radio Online</NavItem>
-      <NavItem to="/tv-online" icon={faTv}>TV Online</NavItem>
+      <NavItem to="/radio-online" icon={faRadio}>Radio</NavItem>
+      <NavItem to="/tv-online" icon={faTv}>TV</NavItem>
       <NavItem to="/tutoriales" icon={faBookOpen}>Tutoriales</NavItem>
       <NavItem to="/desarrollo-personalizado" icon={faFileAlt}>Personalizado</NavItem>
       <NavItem to="/contact" icon={faEnvelope}>Contacto</NavItem>
