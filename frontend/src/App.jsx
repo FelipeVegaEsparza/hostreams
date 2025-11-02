@@ -33,6 +33,7 @@ import PaymentCancel from './pages/PaymentCancel'; // Importar la nueva página
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BlogManagement from './pages/BlogManagement';
+import EmailLogManagement from './pages/EmailLogManagement'; // Importar la nueva página
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
                 <Route path="subscriptions" element={<SubscriptionManagement />} />
                 <Route path="manual-payments" element={<ManualPaymentManagement />} />
                 <Route path="blog" element={<BlogManagement />} />
+                <Route path="email-logs" element={<EmailLogManagement />} />
               </Route>
             </Routes>
           </main>

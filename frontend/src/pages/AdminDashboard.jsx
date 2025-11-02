@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartBar, faUsers, faFileInvoiceDollar, faTicketAlt, faBookOpen, faCogs, faHandHoldingUsd } from '@fortawesome/free-solid-svg-icons';
+import { faChartBar, faUsers, faFileInvoiceDollar, faTicketAlt, faBookOpen, faCogs, faHandHoldingUsd, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 const AdminDashboard = () => {
   const adminLinks = [
@@ -12,6 +12,7 @@ const AdminDashboard = () => {
     { to: '/admin/subscriptions', label: 'Revisar Suscripciones', description: 'Ver el estado de todas las suscripciones.', icon: faChartBar },
     { to: '/admin/manual-payments', label: 'Confirmar Pagos Manuales', description: 'Aprobar o rechazar pagos por transferencia.', icon: faHandHoldingUsd },
     { to: '/admin/blog', label: 'Gestionar Blog', description: 'Crear, editar y eliminar entradas del blog.', icon: faBookOpen },
+    { to: '/admin/email-logs', label: 'Registro de Correos', description: 'Ver un historial de todos los correos enviados.', icon: faEnvelope },
   ];
 
   return (

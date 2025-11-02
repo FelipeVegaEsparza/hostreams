@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const EmailLog = require('../models/EmailLog'); // Importar el modelo de log
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
@@ -11,17 +12,33 @@ const transporter = nodemailer.createTransport({
 });
 
 exports.sendConfirmationEmail = async (to, subject, text, html) => {
+  const mailOptions = {
+    from: `"Hostreams" <${process.env.EMAIL_USER}>`,
+    to,
+    subject,
+    text,
+    html,
+  };
+
   try {
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to,
-      subject,
-      text,
-      html,
-    };
     await transporter.sendMail(mailOptions);
-    console.log('Correo de confirmación enviado a:', to);
+    console.log('Correo enviado a:', to);
+    // Registrar el éxito en la base de datos
+    await EmailLog.create({
+      recipient: to,
+      subject,
+      status: 'sent',
+    });
   } catch (error) {
-    console.error('Error al enviar correo de confirmación:', error);
+    console.error('Error al enviar correo:', error);
+    // Registrar el fallo en la base de datos
+    await EmailLog.create({
+      recipient: to,
+      subject,
+      status: 'failed',
+      error_message: error.message,
+    });
+    // Opcional: relanzar el error si quieres que el llamador lo maneje
+    // throw error;
   }
 };
