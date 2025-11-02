@@ -111,6 +111,7 @@ exports.login = async (req, res) => {
 
 exports.getMe = async (req, res) => {
   try {
+    console.log('getMe Controller: Buscando usuario con payload:', req.user);
     const user = await User.findByPk(req.user.id, {
       attributes: { exclude: ['contrasena'] },
       include: [
@@ -120,12 +121,14 @@ exports.getMe = async (req, res) => {
     });
 
     if (!user) {
+      console.error('getMe Controller: Usuario no encontrado en la BD con id:', req.user.id);
       return res.status(404).json({ msg: 'Usuario no encontrado' });
     }
 
+    console.log('getMe Controller: Usuario encontrado, enviando datos.');
     res.json(user);
   } catch (err) {
-    console.error(err.message);
+    console.error('getMe Controller: Error al buscar usuario:', err.message);
     res.status(500).send('Error del servidor');
   }
 };
