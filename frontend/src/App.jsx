@@ -26,6 +26,7 @@ import TicketDetail from './pages/TicketDetail';
 import Tutoriales from './pages/Tutoriales';
 import Privacy from './pages/Privacy';
 import CustomDevelopment from './pages/CustomDevelopment';
+import Terms from './pages/Terms';
 import Blog from './pages/Blog';
 import BlogDetail from './pages/BlogDetail';
 import PaymentSuccess from './pages/PaymentSuccess'; // Importar la nueva página
@@ -51,6 +52,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/tutoriales" element={<Tutoriales />} />
               <Route path="/privacy" element={<Privacy />} />
+              <Route path="/terms" element={<Terms />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id" element={<BlogDetail />} />
               <Route path="/payment-selection" element={<PaymentSelection />} />

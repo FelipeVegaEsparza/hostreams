@@ -79,7 +79,9 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Hostreams. Todos los derechos reservados.
           </p>
           <div className="order-1 sm:order-2">
-             <Link to="/privacy" className="text-gray-500 hover:text-gray-400 text-sm transition-colors">Política de Privacidad</Link>
+            <Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">Política de Privacidad</Link>
+            <span className="text-gray-500">|</span>
+            <Link to="/terms" className="text-gray-400 hover:text-white transition-colors">Términos y Condiciones</Link>
           </div>
         </div>
       </div>
