@@ -77,8 +77,8 @@ const updateOverdueSubscriptions = async () => {
 
 // Programar las tareas para que se ejecuten una vez al día a la 1 AM
 const initScheduledJobs = () => {
-  // Se ejecuta todos los días a la 1:00 AM
-  cron.schedule('0 1 * * *', () => {
+  // Se ejecuta todos los días a las 13:00 (1 PM)
+  cron.schedule('0 13 * * *', () => {
     console.log('--- Iniciando Tareas Programadas Diarias ---');
     sendPaymentReminders();
     updateOverdueSubscriptions();
