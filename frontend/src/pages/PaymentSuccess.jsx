@@ -12,28 +12,23 @@ const PaymentSuccess = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = searchParams.get('token');
+    setLoading(true);
+    const planName = sessionStorage.getItem('selectedPlanName');
 
-    if (token) {
-      const fetchPaymentStatus = async () => {
-        try {
-          setLoading(true);
-          const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}api/flow/getPaymentStatus`, { token });
-          setPaymentDetails(response.data);
-          setError(null);
-        } catch (err) {
-          setError('No se pudieron obtener los detalles del pago. Por favor, contacta a soporte.');
-          console.error(err);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchPaymentStatus();
+    if (planName) {
+      // Usamos el nombre del plan guardado para mostrarlo en la UI
+      setPaymentDetails({ subject: planName });
+      // Limpiamos el sessionStorage para que no se reutilice
+      sessionStorage.removeItem('selectedPlanName');
+      setError(null);
     } else {
-      setError('Token de pago no encontrado.');
-      setLoading(false);
+      // Opcional: manejar el caso donde alguien navega a la página directamente
+      // Por ahora, simplemente mostramos el mensaje sin el nombre del plan.
+      setPaymentDetails({ subject: 'tu nuevo plan' }); 
     }
-  }, [searchParams]);
+
+    setLoading(false);
+  }, []);
 
   const SkeletonLoader = () => (
     <div className="animate-pulse text-center">

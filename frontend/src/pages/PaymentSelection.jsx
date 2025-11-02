@@ -88,6 +88,7 @@ const PaymentSelection = ({ plan: propPlan }) => { // Eliminar onClose
         console.log('Flow.cl create-payment response:', flowResponse.data);
 
         if (flowResponse.data && flowResponse.data.url && flowResponse.data.token) {
+          sessionStorage.setItem('selectedPlanName', currentPlan.nombre); // Guardar el nombre del plan
           window.location.href = `${flowResponse.data.url}?token=${flowResponse.data.token}`; // Redirect to Flow payment page with token
         } else {
           toast.error('Error al iniciar el pago con Flow.cl: URL de pago no recibida.');
