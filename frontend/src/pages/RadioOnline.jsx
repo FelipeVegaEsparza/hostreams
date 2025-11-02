@@ -64,20 +64,20 @@ const RadioOnline = () => {
         <div className="absolute top-0 left-0 w-full h-full bg-cover bg-center" style={{ backgroundImage: `url(/banner2.webp)` }}></div>
         <div className="absolute top-0 left-0 w-full h-full bg-black/60"></div>
         <div className="relative z-10 animate-fade-in-down">
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-wider text-glow">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-wider text-glow">
             Radio Online Profesional
           </h1>
-          <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mt-6 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mt-6 leading-relaxed">
             Tu estación de radio en internet con la máxima calidad de audio, estabilidad 24/7 y todas las herramientas para crecer.
           </p>
         </div>
       </div>
 
       {/* Features Grid Section */}
-      <section className="py-20 px-4">
+      <section className="py-16 sm:py-20 px-4">
         <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">Todo para tu Emisora</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">Todo para tu Emisora</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <Feature icon={faHeadphones} title="Calidad de Audio Superior" text="Streaming en formato AAC+ de alta eficiencia para un sonido nítido y claro con bajo consumo de datos para tus oyentes." />
             <Feature icon={faServer} title="AutoDJ Inteligente" text="Sube tu música, programas y pautas comerciales. Crea listas de reproducción y deja que el sistema transmita por ti 24/7." />
             <Feature icon={faUsers} title="Estadísticas Detalladas" text="Conoce a tu audiencia: oyentes en tiempo real, picos de audiencia, tiempo de escucha, ubicación geográfica y más." />
@@ -89,24 +89,24 @@ const RadioOnline = () => {
       </section>
 
       {/* SonicPanel Section */}
-      <section className="py-24 px-4 bg-gradient-to-br from-blue-900 to-gray-900">
+      <section className="py-16 sm:py-24 px-4 bg-gradient-to-br from-blue-900 to-gray-900">
         <div className="container mx-auto text-center">
-          <h2 className="text-5xl font-extrabold mb-16 text-white">Tecnología SonicPanel para tu radio online</h2>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-12 max-w-5xl mx-auto">
+          <h2 className="text-3xl sm:text-5xl font-extrabold mb-12 sm:mb-16 text-white">Tecnología SonicPanel para tu radio online</h2>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 max-w-5xl mx-auto">
             <div className="md:w-1/2">
               <img src="/sonicpanel.webp" alt="SonicPanel" className="rounded-lg shadow-xl border border-gray-700 transition-transform duration-300 hover:scale-105" />
             </div>
-            <div className="md:w-1/2 text-left space-y-6 border-l-4 border-blue-500 pl-4">
-              <p className="text-gray-200 text-lg leading-relaxed max-w-prose">
+            <div className="md:w-1/2 text-center md:text-left space-y-6 md:border-l-4 border-blue-500 md:pl-8">
+              <p className="text-gray-200 sm:text-lg leading-relaxed sm:leading-loose max-w-prose">
                 En Hostreams impulsamos tu emisora con la potencia y estabilidad de SonicPanel, una de las plataformas de radiostreaming más avanzadas y confiables del mundo.
               </p>
-              <p className="text-gray-200 text-lg leading-relaxed max-w-prose">
+              <p className="text-gray-200 sm:text-lg leading-relaxed sm:leading-loose max-w-prose">
                 Somos partners estratégicos de SonicPanel, lo que nos permite ofrecerte una integración directa, con todas sus funciones premium y un soporte técnico optimizado para cada cliente.
               </p>
-              <p className="text-gray-200 text-lg leading-relaxed max-w-prose">
+              <p className="text-gray-200 sm:text-lg leading-relaxed sm:leading-loose max-w-prose">
                 Con SonicPanel podrás administrar tus cuentas de radio, gestionar DJs, programar retransmisiones, emitir en vivo o de forma automática, y obtener estadísticas en tiempo real sobre tu audiencia.
               </p>
-              <p className="text-gray-200 text-lg leading-relaxed max-w-prose">
+              <p className="text-gray-200 sm:text-lg leading-relaxed sm:leading-loose max-w-prose">
                 Esta tecnología está disponible en todos nuestros planes de radio online, garantizando un rendimiento profesional, transmisión continua 24/7 y una experiencia fluida tanto para emisores como para oyentes.
               </p>
             </div>
@@ -115,9 +115,9 @@ const RadioOnline = () => {
       </section>
 
       {/* Planes Section */}
-      <section className="py-20 px-4 bg-gray-800/50">
+      <section className="py-16 sm:py-20 px-4 bg-gray-800/50">
         <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">Planes de Radio Online</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">Planes de Radio Online</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {plans.map((plan) => (
               <div key={plan.id} className="glass-card rounded-2xl p-8 flex flex-col">

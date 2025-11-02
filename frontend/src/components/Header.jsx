@@ -123,6 +123,18 @@ const Header = () => {
                 )}
               </>
             )}
+            <div className="border-t border-gray-700 pt-4 mt-4 px-2">
+              <label htmlFor="mobile-currency" className="sr-only">Seleccionar Moneda</label>
+              <select
+                id="mobile-currency"
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
+                className="w-full bg-gray-700 border border-gray-600 text-white py-2 px-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
+              >
+                <option value="CLP">CLP</option>
+                <option value="USD">USD</option>
+              </select>
+            </div>
           </div>
         </div>
       )}

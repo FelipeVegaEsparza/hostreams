@@ -98,8 +98,9 @@ const UserManagement = () => {
         {users.length === 0 ? (
           <p>No hay usuarios registrados.</p>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-gray-800 rounded-lg shadow-md">
+          <div className="shadow-lg rounded-lg overflow-hidden">
+            {/* Vista de Tabla para Escritorio */}
+            <table className="min-w-full bg-gray-800 hidden md:table">
               <thead>
                 <tr className="bg-gray-700">
                   <th className="py-3 px-4 text-left text-sm font-semibold text-gray-300">ID</th>
@@ -107,12 +108,11 @@ const UserManagement = () => {
                   <th className="py-3 px-4 text-left text-sm font-semibold text-gray-300">Email</th>
                   <th className="py-3 px-4 text-left text-sm font-semibold text-gray-300">Rol</th>
                   <th className="py-3 px-4 text-left text-sm font-semibold text-gray-300">País</th>
-                  <th className="py-3 px-4 text-left text-sm font-semibold text-gray-300">Moneda Preferida</th>
-                  <th className="py-3 px-4 text-left text-sm font-semibold text-gray-300">Fecha Registro</th>
+                  <th className="py-3 px-4 text-left text-sm font-semibold text-gray-300">Registro</th>
                   <th className="py-3 px-4 text-left text-sm font-semibold text-gray-300">Acciones</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-gray-700">
                 {users.map((user) => (
                   <tr key={user.id} className="border-b border-gray-700 hover:bg-gray-700 transition-colors">
                     <td className="py-3 px-4 text-sm">{user.id}</td>
@@ -120,32 +120,41 @@ const UserManagement = () => {
                     <td className="py-3 px-4 text-sm">{user.email}</td>
                     <td className="py-3 px-4 text-sm">{user.rol}</td>
                     <td className="py-3 px-4 text-sm">{user.pais}</td>
-                    <td className="py-3 px-4 text-sm">{user.moneda_preferida}</td>
                     <td className="py-3 px-4 text-sm">{new Date(user.fecha_registro).toLocaleDateString()}</td>
-                    <td className="py-3 px-4 text-sm flex space-x-2">
-                      <button 
-                        onClick={() => handleEdit(user)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs"
-                      >
-                        Editar
-                      </button>
-                      <button 
-                        onClick={() => handleDelete(user.id)}
-                        className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs"
-                      >
-                        Eliminar
-                      </button>
-                      <button 
-                        onClick={() => handleChangePassword(user.id)}
-                        className="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-xs"
-                      >
-                        Contraseña
-                      </button>
+                    <td className="py-3 px-4 text-sm flex flex-wrap gap-2">
+                      <button onClick={() => handleEdit(user)} className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs">Editar</button>
+                      <button onClick={() => handleDelete(user.id)} className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs">Eliminar</button>
+                      <button onClick={() => handleChangePassword(user.id)} className="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-xs">Contraseña</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+
+            {/* Vista de Tarjetas para Móvil */}
+            <div className="md:hidden space-y-4">
+              {users.map((user) => (
+                <div key={user.id} className="bg-gray-800 rounded-lg p-4 space-y-3">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <div className="font-bold text-lg">{user.nombre}</div>
+                      <div className="text-sm text-gray-400">{user.email}</div>
+                    </div>
+                    <div className="text-sm font-mono text-gray-400">ID: {user.id}</div>
+                  </div>
+                  <div className="text-sm border-t border-gray-700 pt-2 mt-2 grid grid-cols-2 gap-2">
+                    <div><strong className="text-gray-400">Rol:</strong> {user.rol}</div>
+                    <div><strong className="text-gray-400">País:</strong> {user.pais}</div>
+                    <div className="col-span-2"><strong className="text-gray-400">Registro:</strong> {new Date(user.fecha_registro).toLocaleDateString()}</div>
+                  </div>
+                  <div className="flex items-center space-x-2 pt-2 border-t border-gray-700 mt-2">
+                    <button onClick={() => handleEdit(user)} className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs">Editar</button>
+                    <button onClick={() => handleDelete(user.id)} className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs">Eliminar</button>
+                    <button onClick={() => handleChangePassword(user.id)} className="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-xs">Contraseña</button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 

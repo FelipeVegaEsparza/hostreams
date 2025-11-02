@@ -65,9 +65,9 @@ const MyAccount = () => {
   }
 
   return (
-    <div className="bg-gray-900 text-white min-h-[calc(100vh-64px)] py-20 px-4">
+    <div className="bg-gray-900 text-white min-h-[calc(100vh-64px)] py-10 sm:py-20 px-4">
       <div className="container mx-auto max-w-5xl">
-        <h1 className="text-4xl font-bold text-center mb-12 text-white">Mi Cuenta</h1>
+        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 text-white">Mi Cuenta</h1>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">

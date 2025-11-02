@@ -30,11 +30,11 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-gray-900 text-white min-h-[calc(100vh-128px)] py-20 px-4">
+    <div className="bg-gray-900 text-white min-h-[calc(100vh-128px)] py-12 sm:py-20 px-4">
       <div className="container mx-auto max-w-3xl">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-black uppercase tracking-wider text-glow mb-4">Contáctanos</h1>
-          <p className="text-lg text-gray-300 leading-relaxed">
+          <h1 className="text-4xl sm:text-5xl font-black uppercase tracking-wider text-glow mb-4">Contáctanos</h1>
+          <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
             ¿Tienes preguntas sobre nuestros planes, necesitas ayuda con tu servicio o quieres una solución a medida? Completa el formulario y nuestro equipo se pondrá en contacto contigo a la brevedad.
           </p>
         </div>

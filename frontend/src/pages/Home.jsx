@@ -203,7 +203,7 @@ const Home = () => {
       {isModalOpen && <SubscriptionModal plan={selectedPlan} onClose={() => setIsModalOpen(false)} />}
 
       {/* Hero Section */}
-      <div className="relative min-h-[calc(100vh-64px)] flex flex-col items-center justify-center overflow-hidden p-4">
+      <div className="relative min-h-[calc(100vh-64px)] flex flex-col items-center justify-center overflow-hidden p-4 text-center">
         <div className="hero-bg-slider">
           {bannerImages.map((img, index) => (
             <div
@@ -214,17 +214,17 @@ const Home = () => {
           ))}
         </div>
         <div className="hero-bg-overlay"></div>
-        <div className="relative z-10 flex flex-col items-center text-center">
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-wider mb-6 animate-fade-in-down text-glow">
+        <div className="relative z-10 flex flex-col items-center">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-wider mb-4 sm:mb-6 animate-fade-in-down text-glow">
             Lanza, Transmite y Crece
           </h1>
-          <p className="text-lg md:text-xl text-gray-300 max-w-4xl mb-12 leading-relaxed animate-fade-in">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-4xl mb-8 sm:mb-12 leading-relaxed animate-fade-in">
             La plataforma todo-en-uno para radios online. Servicio de streaming con panel de control, apps PWA (Android/iOS/PC), hosting SSD y soporte técnico. Ideal para emisoras comunitarias, locales y proyectos comerciales. Sin complicaciones técnicas: te entregamos lo necesario para salir al aire.
           </p>
           <div className="animate-fade-in-up">
             <Link 
               to="/plans" 
-              className="px-10 py-4 bg-blue-600 text-white text-xl font-bold rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+              className="px-8 sm:px-10 py-3 sm:py-4 bg-blue-600 text-white text-lg sm:text-xl font-bold rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
             >
               Comenzar ahora
             </Link>
@@ -233,10 +233,10 @@ const Home = () => {
       </div>
 
       {/* Features Section */}
-      <section className="py-20 px-4 bg-gray-800/50">
+      <section className="py-16 sm:py-20 px-4 bg-gray-800/50">
         <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 text-white">Todo lo que necesitas para transmitir</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-white">Todo lo que necesitas para transmitir</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {features.map((feature, index) => (
               <FeatureCard key={index} icon={feature.icon} title={feature.title}>
                 {feature.description}
@@ -247,9 +247,9 @@ const Home = () => {
       </section>
 
       {/* How it Works Section */}
-      <section className="py-20 px-4">
+      <section className="py-16 sm:py-20 px-4">
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-12 text-white">Cómo funciona</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-white">Cómo funciona</h2>
           <div className="relative flex flex-col md:flex-row justify-between items-center max-w-5xl mx-auto">
             <div className="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-blue-500/30 transform -translate-y-1/2"></div>
             <StepCard number="1" title="Elige un plan">Selecciona el paquete que se ajuste a tu audiencia.</StepCard>
@@ -262,22 +262,22 @@ const Home = () => {
 
 
       {/* Control Panel Section */}
-      <section className="py-24 px-4 bg-gradient-to-b from-gray-900 to-gray-800"> {/* Subtle gradient background */}
-        <div className="container mx-auto text-center max-w-6xl"> {/* Increased max-width */}
-          <h2 className="text-5xl font-extrabold mb-16 text-white">Nuestro Panel de Control</h2> {/* Increased font size and weight, more margin */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-12 max-w-5xl mx-auto"> {/* Increased gap */}
+      <section className="py-16 sm:py-24 px-4 bg-gradient-to-b from-gray-900 to-gray-800">
+        <div className="container mx-auto text-center max-w-6xl">
+          <h2 className="text-3xl sm:text-5xl font-extrabold mb-12 sm:mb-16 text-white">Nuestro Panel de Control</h2>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 max-w-5xl mx-auto">
             <div className="md:w-1/2">
-              <img src="/dashboard.webp" alt="Hostreams Dashboard" className="rounded-xl border border-gray-700 shadow-xl transition-transform duration-300 hover:scale-105" /> {/* Added border, stronger shadow, rounded-xl, and hover effect */}
+              <img src="/dashboard.webp" alt="Hostreams Dashboard" className="rounded-xl border border-gray-700 shadow-xl transition-transform duration-300 hover:scale-105" />
             </div>
-            <div className="md:w-1/2 text-left space-y-6 border-l-4 border-blue-500 pl-4"> {/* Added space-y-6 for paragraph spacing, left border and padding */}
-              <h3 className="text-4xl font-bold text-blue-400 mb-4">Un panel para administrar tu contenido</h3> {/* Increased font size, highlighted title color */}
-              <p className="text-gray-200 text-lg leading-loose max-w-prose"> {/* Changed text color, increased line height, added max-w-prose */}
+            <div className="md:w-1/2 text-center md:text-left space-y-4 md:space-y-6 md:border-l-4 border-blue-500 md:pl-8">
+              <h3 className="text-2xl sm:text-4xl font-bold text-blue-400 mb-4">Un panel para administrar tu contenido</h3>
+              <p className="text-gray-300 sm:text-lg leading-relaxed sm:leading-loose max-w-prose">
                 El dashboard de Hostreams te permite gestionar fácilmente toda la parte editorial de tu emisora: contenido del sitio web y la app PWA, publicaciones, noticias, banners y secciones informativas.
               </p>
-              <p className="text-gray-200 text-lg leading-loose max-w-prose"> {/* Changed text color, increased line height, added max-w-prose */}
+              <p className="text-gray-300 sm:text-lg leading-relaxed sm:leading-loose max-w-prose">
                 Desde aquí podrás mantener actualizada tu plataforma, subir imágenes, editar textos y programar publicaciones sin depender de conocimientos técnicos.
               </p>
-              <p className="text-gray-200 text-lg leading-loose max-w-prose"> {/* Changed text color, increased line height, added max-w-prose */}
+              <p className="text-gray-300 sm:text-lg leading-relaxed sm:leading-loose max-w-prose">
                 Todo lo que cambies en este panel se sincroniza automáticamente entre tu app y tu sitio web, manteniendo tu emisora siempre al día y con una imagen profesional.
               </p>
             </div>
@@ -286,9 +286,9 @@ const Home = () => {
       </section>
 
       {/* Blog Section */}
-      <section className="py-20 px-4 bg-gray-800/50">
+      <section className="py-16 sm:py-20 px-4 bg-gray-800/50">
         <div className="container mx-auto text-center max-w-6xl">
-          <h2 className="text-4xl font-bold text-center mb-12 text-white">Nuestro Blog</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-white">Nuestro Blog</h2>
           {latestBlogPosts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               {latestBlogPosts.map((post) => (
@@ -323,9 +323,9 @@ const Home = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 px-4 bg-gray-800/50">
+      <section className="py-16 sm:py-20 px-4 bg-gray-800/50">
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold text-center mb-12 text-white">Qué dicen nuestros clientes</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-white">Qué dicen nuestros clientes</h2>
           <div className="relative max-w-3xl mx-auto overflow-hidden">
             <div 
               className="flex transition-transform duration-500 ease-in-out"
