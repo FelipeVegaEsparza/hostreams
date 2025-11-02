@@ -52,10 +52,13 @@ app.use('/api/flow', flowRoutes); // Usar rutas de Flow.cl
 
 // Sincronizar base de datos y luego iniciar el servidor
 const syncDatabase = require('./config/sync');
+const initScheduledJobs = require('./cron/subscriptionCron'); // Importar el inicializador de cron
 
 async function startServer() {
   try {
     await syncDatabase(); // Esperar a que la base de datos se sincronice
+
+    initScheduledJobs(); // Iniciar las tareas programadas
 
     app.listen(PORT, () => {
       console.log(`Servidor backend escuchando en el puerto ${PORT}`);
