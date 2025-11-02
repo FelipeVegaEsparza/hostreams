@@ -19,4 +19,9 @@ router.post('/', auth, subscriptionController.createSubscription);
 // @access  Private (Admin)
 router.put('/:id/status', auth, admin, subscriptionController.updateSubscriptionStatus);
 
+// @route   DELETE api/subscriptions/:id
+// @desc    Eliminar una suscripción
+// @access  Private (Admin)
+router.delete('/:id', auth, admin, subscriptionController.deleteSubscription);
+
 module.exports = router;

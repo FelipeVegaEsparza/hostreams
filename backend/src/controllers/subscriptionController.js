@@ -115,9 +115,28 @@ exports.updateSubscriptionStatus = async (req, res) => {
 
     subscription.estado = estado;
     await subscription.save();
-    res.json(subscription);
+    res.status(500).send('Error del servidor');
+  }
+};
+
+// Eliminar una suscripción (solo admin)
+exports.deleteSubscription = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const subscription = await Subscription.findByPk(id);
+    if (!subscription) {
+      return res.status(404).json({ msg: 'Suscripción no encontrada' });
+    }
+
+    // Opcional: Eliminar pagos asociados para mantener la integridad de la BD
+    await Payment.destroy({ where: { suscripcion_id: id } });
+
+    await subscription.destroy();
+    res.json({ msg: 'Suscripción eliminada exitosamente' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Error del servidor');
   }
 };
+
