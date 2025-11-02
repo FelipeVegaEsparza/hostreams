@@ -19,4 +19,9 @@ router.put('/:id', auth, admin, userController.updateUser);
 // @access  Private (Admin)
 router.delete('/:id', auth, admin, userController.deleteUser);
 
+// @route   PUT api/admin/users/:id/password
+// @desc    Cambiar la contraseña de un usuario (solo admin)
+// @access  Private (Admin)
+router.put('/:id/password', auth, admin, userController.changeUserPassword);
+
 module.exports = router;

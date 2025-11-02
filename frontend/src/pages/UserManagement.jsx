@@ -62,6 +62,31 @@ const UserManagement = () => {
     fetchUsers(); // Volver a cargar la lista de usuarios después de una actualización
   };
 
+  const handleChangePassword = async (userId) => {
+    const newPassword = prompt('Ingresa la nueva contraseña para este usuario (mínimo 6 caracteres):');
+    if (!newPassword) {
+      toast.info('Cambio de contraseña cancelado.');
+      return;
+    }
+    if (newPassword.length < 6) {
+      toast.error('La contraseña debe tener al menos 6 caracteres.');
+      return;
+    }
+
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      await axios.put(import.meta.env.VITE_API_BASE_URL + `api/admin/users/${userId}/password`, { password: newPassword }, config);
+      toast.success('¡Contraseña actualizada exitosamente!');
+    } catch (error) {
+      toast.error(error.response?.data?.msg || 'Error al cambiar la contraseña.');
+      console.error('Error changing password:', error);
+    }
+  };
+
   if (loading) {
     return <div className="text-center text-white">Cargando usuarios...</div>;
   }
@@ -109,6 +134,12 @@ const UserManagement = () => {
                         className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs"
                       >
                         Eliminar
+                      </button>
+                      <button 
+                        onClick={() => handleChangePassword(user.id)}
+                        className="bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-xs"
+                      >
+                        Contraseña
                       </button>
                     </td>
                   </tr>
