@@ -4,7 +4,7 @@ import { FaTimesCircle, FaExclamationTriangle } from 'react-icons/fa';
 
 const PaymentCancel = () => {
   return (
-    <div className="min-h-[60vh] bg-gray-50 flex items-center justify-center p-4 font-inter">
+    <div className="min-h-[60vh] bg-gray-900 flex items-center justify-center p-4 font-inter">
       <div className="bg-white p-8 md:p-12 rounded-2xl shadow-lg max-w-2xl w-full text-center transform transition-all duration-500 ease-in-out animate-fade-in">
         <div className="relative">
           <FaTimesCircle className="text-red-500 text-7xl mx-auto animate-bounce-in" />
