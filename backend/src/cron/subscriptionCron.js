@@ -5,37 +5,57 @@ const User = require('../models/User');
 const Plan = require('../models/Plan');
 const emailService = require('../utils/emailService');
 
-// Función para enviar recordatorios de pago
+// Función para enviar recordatorios de pago en intervalos específicos
 const sendPaymentReminders = async () => {
   console.log('Ejecutando tarea de recordatorios de pago...');
-  const today = new Date();
-  const reminderDate = new Date();
-  reminderDate.setDate(today.getDate() + 7); // Recordatorio 7 días antes
+  const reminderDays = [7, 3, 0]; // Días antes del vencimiento para enviar recordatorio
 
-  try {
-    const upcomingSubscriptions = await Subscription.findAll({
-      where: {
-        estado: 'activa',
-        fecha_renovacion: {
-          [Op.between]: [today, reminderDate],
+  for (const days of reminderDays) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const reminderDate = new Date(today);
+    reminderDate.setDate(today.getDate() + days);
+
+    try {
+      const subscriptionsToRemind = await Subscription.findAll({
+        where: {
+          estado: 'activa',
+          fecha_renovacion: {
+            [Op.gte]: reminderDate,
+            [Op.lt]: new Date(reminderDate.getTime() + 24 * 60 * 60 * 1000),
+          },
         },
-      },
-      include: [User, Plan],
-    });
+        include: [User, Plan],
+      });
 
-    for (const sub of upcomingSubscriptions) {
-      const subject = `Recordatorio de Pago - Tu suscripción a ${sub.Plan.nombre}`;
-      const html = `
-        <p>Hola ${sub.User.nombre},</p>
-        <p>Este es un recordatorio de que tu suscripción al plan <strong>${sub.Plan.nombre}</strong> está por vencer el día <strong>${new Date(sub.fecha_renovacion).toLocaleDateString()}</strong>.</p>
-        <p>Puedes renovar tu plan desde tu panel de cliente para evitar interrupciones en el servicio.</p>
-        <p>Gracias,<br>El equipo de Hostreams</p>
-      `;
-      await emailService.sendConfirmationEmail(sub.User.email, subject, '', html);
-      console.log(`Recordatorio de pago enviado a ${sub.User.email}`);
+      for (const sub of subscriptionsToRemind) {
+        let subject = '';
+        let html = '';
+
+        if (days === 0) {
+          subject = `Tu suscripción a ${sub.Plan.nombre} vence hoy`;
+          html = `
+            <p>Hola ${sub.User.nombre},</p>
+            <p>Este es un recordatorio de que tu suscripción al plan <strong>${sub.Plan.nombre}</strong> vence hoy, <strong>${new Date(sub.fecha_renovacion).toLocaleDateString()}</strong>.</p>
+            <p>Puedes renovar tu plan desde tu panel de cliente para evitar interrupciones en el servicio.</p>
+            <p>Gracias,<br>El equipo de Hostreams</p>
+          `;
+        } else {
+          subject = `Recordatorio de Pago - Vence en ${days} días`;
+          html = `
+            <p>Hola ${sub.User.nombre},</p>
+            <p>Este es un recordatorio de que tu suscripción al plan <strong>${sub.Plan.nombre}</strong> está por vencer en <strong>${days} días</strong> (el ${new Date(sub.fecha_renovacion).toLocaleDateString()}).</p>
+            <p>Puedes renovar tu plan desde tu panel de cliente para evitar interrupciones en el servicio.</p>
+            <p>Gracias,<br>El equipo de Hostreams</p>
+          `;
+        }
+
+        await emailService.sendConfirmationEmail(sub.User.email, subject, '', html);
+        console.log(`Recordatorio de ${days} días enviado a ${sub.User.email}`);
+      }
+    } catch (error) {
+      console.error(`Error al enviar recordatorios de ${days} días:`, error);
     }
-  } catch (error) {
-    console.error('Error al enviar recordatorios de pago:', error);
   }
 };
 
