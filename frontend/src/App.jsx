@@ -28,6 +28,8 @@ import Privacy from './pages/Privacy';
 import CustomDevelopment from './pages/CustomDevelopment';
 import Blog from './pages/Blog';
 import BlogDetail from './pages/BlogDetail';
+import PaymentSuccess from './pages/PaymentSuccess'; // Importar la nueva página
+import PaymentCancel from './pages/PaymentCancel'; // Importar la nueva página
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BlogManagement from './pages/BlogManagement';
@@ -56,6 +58,8 @@ function App() {
               <Route path="/my-account" element={<MyAccount />} />
               <Route path="/monthly-payment" element={<MonthlyPayment />} /> {/* Nueva ruta para pagos mensuales */}
               <Route path="/manual-payment" element={<ManualPaymentForm />} />
+              <Route path="/payment-success" element={<PaymentSuccess />} /> {/* Ruta para pago exitoso */}
+              <Route path="/payment-cancel" element={<PaymentCancel />} /> {/* Ruta para pago cancelado */}
               <Route path="/soporte" element={<Soporte />} />
               <Route path="/soporte/:id" element={<TicketDetail />} />
               <Route path="/admin" element={<AdminRoute />}>
