@@ -115,6 +115,9 @@ exports.updateSubscriptionStatus = async (req, res) => {
 
     subscription.estado = estado;
     await subscription.save();
+    res.json(subscription); // Enviar la suscripción actualizada
+  } catch (err) {
+    console.error(err.message);
     res.status(500).send('Error del servidor');
   }
 };
