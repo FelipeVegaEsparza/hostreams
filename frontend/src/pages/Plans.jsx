@@ -44,6 +44,32 @@ const Plans = () => {
     setSelectedPlan(null);
   };
 
+  const parseFeatures = (features) => {
+    if (!features) return [];
+    if (Array.isArray(features)) return features;
+    try {
+      let parsed = JSON.parse(features);
+      if (typeof parsed === 'string') parsed = JSON.parse(parsed);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      console.error("Could not parse plan features:", features, error);
+      return [];
+    }
+  };
+
+  const parseFeatures = (features) => {
+    if (!features) return [];
+    if (Array.isArray(features)) return features;
+    try {
+      let parsed = JSON.parse(features);
+      if (typeof parsed === 'string') parsed = JSON.parse(parsed);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      console.error("Could not parse plan features:", features, error);
+      return [];
+    }
+  };
+
   const filteredPlans = allPlans.filter(p => p.categoria === category);
 
   if (loading) {
@@ -100,7 +126,7 @@ const Plans = () => {
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-4">{plan.nombre}</h2>
                   <p className="text-gray-300 mb-6 leading-relaxed">{plan.descripcion}</p>
                   <ul className="list-none text-gray-300 mb-8 space-y-3">
-                    {(Array.isArray(plan.caracteristicas) ? plan.caracteristicas : []).map((feature, index) => (
+                    {parseFeatures(plan.caracteristicas).map((feature, index) => (
                       <li key={index} className="flex items-center">
                         <svg className="w-5 h-5 text-blue-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                         <span>{feature}</span>

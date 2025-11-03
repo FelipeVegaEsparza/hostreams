@@ -39,19 +39,19 @@ const BlogDetail = () => {
   }
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen py-8">
+    <div className="bg-gray-900 text-white min-h-screen py-8 sm:py-12">
       <div className="container mx-auto p-4 max-w-6xl">
         <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden p-6">
           {blogPost.imageUrl && (
             <img
               src={`${import.meta.env.VITE_API_BASE_URL}${blogPost.imageUrl}`}
               alt={blogPost.title}
-              className="w-full h-96 object-cover rounded-md mb-6"
+              className="w-full h-48 sm:h-64 md:h-96 object-cover rounded-md mb-6"
             />
           )}
-          <h1 className="text-4xl font-bold text-white mb-4">{blogPost.title}</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">{blogPost.title}</h1>
           <p className="text-gray-400 text-sm mb-4">Publicado el: {new Date(blogPost.createdAt).toLocaleDateString()}</p>
-          <div className="text-gray-300 text-lg leading-relaxed mb-6" dangerouslySetInnerHTML={{ __html: blogPost.longDescription }}>
+          <div className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6" dangerouslySetInnerHTML={{ __html: blogPost.longDescription }}>
           </div>
           <Link
             to="/blog"

@@ -37,9 +37,9 @@ const Blog = () => {
   }
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen py-8">
+    <div className="bg-gray-900 text-white min-h-screen py-8 sm:py-12">
       <div className="container mx-auto p-4 max-w-6xl">
-        <h1 className="text-4xl font-bold text-white mb-8 text-center">Nuestro Blog</h1>
+        <h1 className="text-3xl sm:text-4xl font-bold text-white mb-8 text-center">Nuestro Blog</h1>
         {blogPosts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.map((post) => (
