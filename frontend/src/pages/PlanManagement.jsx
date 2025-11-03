@@ -53,7 +53,10 @@ const PlanManagement = () => {
         caracteristicas: formData.caracteristicas.split(',').map(item => item.trim()).filter(item => item !== ''),
         precio_clp: parseFloat(formData.precio_clp),
         precio_usd: parseFloat(formData.precio_usd),
+        example_url: formData.example_url, // Asegurar que se incluye
       };
+
+      console.log('Enviando datos del plan:', planData); // Log para depuración
 
       if (isEditing) {
         await axios.put(import.meta.env.VITE_API_BASE_URL + `api/plans/${currentPlan.id}`, planData, config);
