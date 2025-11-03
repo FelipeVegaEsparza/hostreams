@@ -57,20 +57,7 @@ const Plans = () => {
     }
   };
 
-  const parseFeatures = (features) => {
-    if (!features) return [];
-    if (Array.isArray(features)) return features;
-    try {
-      let parsed = JSON.parse(features);
-      if (typeof parsed === 'string') parsed = JSON.parse(parsed);
-      return Array.isArray(parsed) ? parsed : [];
-    } catch (error) {
-      console.error("Could not parse plan features:", features, error);
-      return [];
-    }
-  };
 
-  const filteredPlans = allPlans.filter(p => p.categoria === category);
 
   if (loading) {
     return (
