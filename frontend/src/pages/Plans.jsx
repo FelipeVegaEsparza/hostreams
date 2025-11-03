@@ -62,6 +62,10 @@ const Plans = () => {
 
 
 
+  const filteredPlans = allPlans.filter(p => p.categoria === category);
+  console.log("Categoría actual:", category);
+  console.log("Planes filtrados:", filteredPlans);
+
   if (loading) {
     return (
       <div className="bg-gray-900 text-white min-h-[calc(100vh-64px)] flex items-center justify-center">
