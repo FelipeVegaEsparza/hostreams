@@ -67,6 +67,7 @@ exports.createPlan = async (req, res) => {
 
 // Actualizar un plan existente (solo admin)
 exports.updatePlan = async (req, res) => {
+  console.log('Backend: /api/plans/:id - UPDATE. Recibido:', req.body); // Log para depuración
   const { nombre, descripcion, precio_clp, precio_usd, periodo, caracteristicas, estado, categoria, example_url } = req.body;
   try {
     let plan = await Plan.findByPk(req.params.id);
