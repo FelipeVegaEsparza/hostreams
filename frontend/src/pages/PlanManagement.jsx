@@ -17,6 +17,7 @@ const PlanManagement = () => {
     caracteristicas: '',
     estado: 'activo',
     categoria: 'Radio',
+    example_url: '',
   };
   const [formData, setFormData] = useState(initialFormState);
 
@@ -92,6 +93,7 @@ const PlanManagement = () => {
       })(),
       estado: plan.estado,
       categoria: plan.categoria,
+      example_url: plan.example_url || '',
     });
     setIsFormVisible(true);
   };
@@ -144,6 +146,9 @@ const PlanManagement = () => {
                 </FormSelect>
               </div>
               <FormInput label="Características (separadas por comas)" type="text" name="caracteristicas" value={formData.caracteristicas} onChange={onChange} />
+              <div className="md:col-span-3">
+                <FormInput label="URL de Ejemplo (opcional)" type="url" name="example_url" value={formData.example_url} onChange={onChange} />
+              </div>
               <div className="flex justify-end space-x-4 pt-4">
                 <button type="button" onClick={handleCancelClick} className="bg-gray-600 text-white py-2 px-5 rounded-lg font-bold hover:bg-gray-700 transition-colors">Cancelar</button>
                 <button type="submit" className="bg-blue-600 text-white py-2 px-5 rounded-lg font-bold hover:bg-blue-700 transition-colors">{isEditing ? 'Actualizar Plan' : 'Crear Plan'}</button>

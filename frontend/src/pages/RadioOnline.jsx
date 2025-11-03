@@ -138,12 +138,24 @@ const RadioOnline = () => {
                     {currency === 'CLP' ? `$${Math.floor(plan.precio_clp)}` : `\$${Math.floor(plan.precio_usd)}`}
                     <span className="text-lg text-gray-400"> {currency} / {plan.periodo}</span>
                   </p>
-                  <button
-                    onClick={() => handleOpenModal(plan)}
-                    className="w-full bg-blue-600 text-white py-3 px-6 rounded-full font-bold text-lg shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
-                  >
-                    Contratar
-                  </button>
+                  <div className="flex flex-col space-y-3">
+                    {plan.example_url && (
+                      <a
+                        href={plan.example_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full bg-gray-600 text-white py-3 px-6 rounded-full font-bold text-lg shadow-lg hover:bg-gray-700 transition-all duration-300 transform hover:scale-105"
+                      >
+                        Ver un Ejemplo
+                      </a>
+                    )}
+                    <button
+                      onClick={() => handleOpenModal(plan)}
+                      className="w-full bg-blue-600 text-white py-3 px-6 rounded-full font-bold text-lg shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+                    >
+                      Contratar
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

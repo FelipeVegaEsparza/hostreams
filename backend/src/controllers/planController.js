@@ -45,7 +45,7 @@ exports.getPlanById = async (req, res) => {
 
 // Crear un nuevo plan (solo admin)
 exports.createPlan = async (req, res) => {
-  const { nombre, descripcion, precio_clp, precio_usd, periodo, caracteristicas, estado, categoria } = req.body;
+  const { nombre, descripcion, precio_clp, precio_usd, periodo, caracteristicas, estado, categoria, example_url } = req.body;
   try {
     const newPlan = await Plan.create({
       nombre,
@@ -56,6 +56,7 @@ exports.createPlan = async (req, res) => {
       caracteristicas, // El modelo ahora espera un JSON, no un string
       estado,
       categoria,
+      example_url,
     });
     res.status(201).json(newPlan);
   } catch (err) {
@@ -66,7 +67,7 @@ exports.createPlan = async (req, res) => {
 
 // Actualizar un plan existente (solo admin)
 exports.updatePlan = async (req, res) => {
-  const { nombre, descripcion, precio_clp, precio_usd, periodo, caracteristicas, estado, categoria } = req.body;
+  const { nombre, descripcion, precio_clp, precio_usd, periodo, caracteristicas, estado, categoria, example_url } = req.body;
   try {
     let plan = await Plan.findByPk(req.params.id);
     if (!plan) {
@@ -81,6 +82,7 @@ exports.updatePlan = async (req, res) => {
     plan.caracteristicas = caracteristicas;
     plan.estado = estado;
     plan.categoria = categoria;
+    plan.example_url = example_url;
 
     await plan.save();
     res.json(plan);

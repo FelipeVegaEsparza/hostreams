@@ -40,7 +40,10 @@ const Plan = sequelize.define('Plan', {
   categoria: {
     type: DataTypes.ENUM('Radio', 'TV'),
     allowNull: false,
-    defaultValue: 'Radio',
+  },
+  example_url: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   fecha_creacion: {
     type: DataTypes.DATE,
