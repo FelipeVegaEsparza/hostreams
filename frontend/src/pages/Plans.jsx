@@ -19,15 +19,12 @@ const Plans = () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}api/plans`);
         if (Array.isArray(response.data)) {
-          console.log("Planes recibidos de la API:", response.data);
           setAllPlans(response.data);
         } else {
-          console.error("La API no devolvió un array de planes:", response.data);
           toast.error('Error al cargar los planes.');
           setAllPlans([]);
         }
       } catch (error) {
-        console.error("Error al conectar con el servidor o al obtener planes:", error);
         toast.error('Error al conectar con el servidor.');
         setAllPlans([]);
       } finally {
@@ -63,8 +60,6 @@ const Plans = () => {
 
 
   const filteredPlans = allPlans.filter(p => p.categoria === category);
-  console.log("Categoría actual:", category);
-  console.log("Planes filtrados:", filteredPlans);
 
   if (loading) {
     return (
