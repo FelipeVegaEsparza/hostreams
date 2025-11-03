@@ -11,6 +11,7 @@ exports.getPlans = async (req, res) => {
     }
 
     const plans = await Plan.findAll({ where: whereClause });
+    console.log("Planes a enviar al frontend:", plans);
     res.json(plans);
   } catch (err) {
     console.error(err.message);
