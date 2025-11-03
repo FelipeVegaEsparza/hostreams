@@ -93,7 +93,7 @@ const Plans = () => {
              <p className="text-xl text-gray-400">No hay planes de {category} disponibles en este momento.</p>
            </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
             {filteredPlans.map((plan) => (
               <div key={plan.id} className="glass-card rounded-2xl p-6 sm:p-8 flex flex-col">
                 <div className="flex-grow">

@@ -119,7 +119,7 @@ const TvOnline = () => {
       <section className="py-16 sm:py-20 px-4 bg-gray-800/50">
         <div className="container mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">Planes de TV Online</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {plans.map((plan) => (
               <div key={plan.id} className="glass-card rounded-2xl p-8 flex flex-col">
                 <div className="flex-grow">
