@@ -259,6 +259,93 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Players Section */}
+      <section className="py-16 sm:py-24 px-4 bg-gradient-to-b from-gray-800 to-gray-900">
+        <div className="container mx-auto text-center max-w-7xl">
+          <div className="mb-12 sm:mb-16">
+            <div className="flex items-center justify-center mb-4">
+              <svg className="w-12 h-12 text-blue-400 mr-3 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-white">Elige tu Player Favorito</h2>
+            </div>
+            <p className="text-base sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Ofrecemos 6 diseños exclusivos de reproductores web y PWA totalmente personalizables. 
+              Cada uno con su propio estilo único, optimizado para móviles y escritorio. 
+              <span className="text-blue-400 font-semibold"> ¡Tú eliges el que mejor represente tu marca!</span>
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {[1, 2, 3, 4, 5, 6].map((num) => (
+              <div 
+                key={num} 
+                className="glass-card rounded-2xl overflow-hidden group transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20"
+                style={{ animationDelay: `${num * 100}ms` }}
+              >
+                <div className="relative overflow-hidden">
+                  <img 
+                    src={`/p${num}.png`} 
+                    alt={`Player ${num}`} 
+                    className="w-full h-64 sm:h-72 object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
+                  <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                    Player {num}
+                  </div>
+                </div>
+                <div className="p-6 bg-gray-800/50">
+                  <div className="flex items-center justify-center space-x-2 text-gray-300">
+                    <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm font-medium">Diseño Moderno</span>
+                    <span className="text-gray-500">•</span>
+                    <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                    <span className="text-sm font-medium">Responsive</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 sm:mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            <div className="flex items-center text-gray-300">
+              <svg className="w-6 h-6 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-sm sm:text-base">100% Personalizables</span>
+            </div>
+            <div className="flex items-center text-gray-300">
+              <svg className="w-6 h-6 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-sm sm:text-base">Instalables como App</span>
+            </div>
+            <div className="flex items-center text-gray-300">
+              <svg className="w-6 h-6 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-sm sm:text-base">Optimizados para SEO</span>
+            </div>
+          </div>
+
+          <div className="mt-10">
+            <Link 
+              to="/plans" 
+              className="inline-flex items-center px-8 py-4 bg-blue-600 text-white text-lg font-bold rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              <span>Ver Planes y Elegir tu Player</span>
+              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
 
 
       {/* Control Panel Section */}
