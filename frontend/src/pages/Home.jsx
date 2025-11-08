@@ -276,36 +276,33 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
             {[1, 2, 3, 4, 5, 6].map((num) => (
               <div 
                 key={num} 
-                className="glass-card rounded-2xl overflow-hidden group transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20"
+                className="group transform transition-all duration-500 hover:scale-105"
                 style={{ animationDelay: `${num * 100}ms` }}
               >
-                <div className="relative overflow-hidden">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl hover:shadow-blue-500/30 transition-shadow duration-500">
                   <img 
                     src={`/p${num}.png`} 
                     alt={`Player ${num}`} 
-                    className="w-full h-64 sm:h-72 object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
-                  <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                  <div className="absolute top-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg backdrop-blur-sm bg-blue-600/90">
                     Player {num}
                   </div>
                 </div>
-                <div className="p-6 bg-gray-800/50">
-                  <div className="flex items-center justify-center space-x-2 text-gray-300">
-                    <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                    </svg>
-                    <span className="text-sm font-medium">Diseño Moderno</span>
-                    <span className="text-gray-500">•</span>
-                    <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                    </svg>
-                    <span className="text-sm font-medium">Responsive</span>
-                  </div>
+                <div className="mt-4 flex items-center justify-center space-x-3 text-gray-300">
+                  <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-sm font-medium">Diseño Moderno</span>
+                  <span className="text-gray-600">•</span>
+                  <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                  <span className="text-sm font-medium">Responsive</span>
                 </div>
               </div>
             ))}
