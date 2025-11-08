@@ -118,17 +118,26 @@ const RadioOnline = () => {
       <section className="py-16 sm:py-20 px-4 bg-gray-800/50">
         <div className="container mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">Planes de Radio Online</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
             {plans.map((plan) => (
-              <div key={plan.id} className="glass-card rounded-2xl p-8 flex flex-col">
+              <div key={plan.id} className="glass-card rounded-2xl p-6 flex flex-col hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300">
                 <div className="flex-grow">
-                  <h3 className="text-3xl font-extrabold text-white mb-4">{plan.nombre}</h3>
-                  <p className="text-gray-300 mb-6 leading-relaxed">{plan.descripcion}</p>
-                  <ul className="list-none text-gray-300 mb-8 space-y-3">
+                  <h3 className="text-2xl font-extrabold text-white mb-3">{plan.nombre}</h3>
+                  <p className="text-gray-400 text-sm mb-5 leading-relaxed">{plan.descripcion}</p>
+                  
+                  <div className="mb-5">
+                    <p className="text-3xl font-bold text-white">
+                      {currency === 'CLP' ? `$${Math.floor(plan.precio_clp).toLocaleString('es-CL')}` : `$${Math.floor(plan.precio_usd)}`}
+                      <span className="text-base text-gray-400 font-normal"> {currency}</span>
+                    </p>
+                    <p className="text-sm text-gray-500">por {plan.periodo}</p>
+                  </div>
+
+                  <ul className="list-none text-gray-300 mb-6 space-y-2">
                     {parseFeatures(plan.caracteristicas).map((feature, index) => (
-                      <li key={index} className="flex items-center">
-                        <svg className="w-5 h-5 text-blue-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                        {feature}
+                      <li key={index} className="flex items-start text-sm">
+                        <svg className="w-4 h-4 text-blue-400 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span>{feature}</span>
                       </li>
                     ))}
                   </ul>

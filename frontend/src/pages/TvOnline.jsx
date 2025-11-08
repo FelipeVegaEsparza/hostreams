@@ -119,17 +119,26 @@ const TvOnline = () => {
       <section className="py-16 sm:py-20 px-4 bg-gray-800/50">
         <div className="container mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">Planes de TV Online</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
             {plans.map((plan) => (
-              <div key={plan.id} className="glass-card rounded-2xl p-8 flex flex-col">
+              <div key={plan.id} className="glass-card rounded-2xl p-6 flex flex-col hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300">
                 <div className="flex-grow">
-                  <h3 className="text-3xl font-extrabold text-white mb-4">{plan.nombre}</h3>
-                  <p className="text-gray-300 mb-6 leading-relaxed">{plan.descripcion}</p>
-                  <ul className="list-none text-gray-300 mb-8 space-y-3">
+                  <h3 className="text-2xl font-extrabold text-white mb-3">{plan.nombre}</h3>
+                  <p className="text-gray-400 text-sm mb-5 leading-relaxed">{plan.descripcion}</p>
+                  
+                  <div className="mb-5">
+                    <p className="text-3xl font-bold text-white">
+                      {currency === 'CLP' ? `$${Math.floor(plan.precio_clp).toLocaleString('es-CL')}` : `$${Math.floor(plan.precio_usd)}`}
+                      <span className="text-base text-gray-400 font-normal"> {currency}</span>
+                    </p>
+                    <p className="text-sm text-gray-500">por {plan.periodo}</p>
+                  </div>
+
+                  <ul className="list-none text-gray-300 mb-6 space-y-2">
                     {parseFeatures(plan.caracteristicas).map((feature, index) => (
-                      <li key={index} className="flex items-center">
-                        <svg className="w-5 h-5 text-blue-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                        {feature}
+                      <li key={index} className="flex items-start text-sm">
+                        <svg className="w-4 h-4 text-blue-400 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -139,22 +148,22 @@ const TvOnline = () => {
                     {currency === 'CLP' ? `$${plan.precio_clp}` : `\$${plan.precio_usd}`}
                     <span className="text-lg text-gray-400"> {currency} / {plan.periodo}</span>
                   </p>
-                  <div className="flex flex-col space-y-3">
+                  <div className="flex flex-col gap-2">
                     {plan.example_url && (
                       <a
                         href={plan.example_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full bg-gray-600 text-white py-3 px-6 rounded-full font-bold text-lg shadow-lg hover:bg-gray-700 transition-all duration-300 transform hover:scale-105"
+                        className="w-full bg-gray-700 text-white py-2.5 px-4 rounded-lg font-semibold text-sm shadow-md hover:bg-gray-600 transition-all duration-300 text-center"
                       >
-                        Ver un Ejemplo
+                        Ver Ejemplo
                       </a>
                     )}
                     <button
                       onClick={() => handleOpenModal(plan)}
-                      className="w-full bg-blue-600 text-white py-3 px-6 rounded-full font-bold text-lg shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+                      className="w-full bg-blue-600 text-white py-2.5 px-4 rounded-lg font-bold text-sm shadow-lg hover:bg-blue-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                     >
-                      Contratar
+                      Contratar Ahora
                     </button>
                   </div>
                 </div>
